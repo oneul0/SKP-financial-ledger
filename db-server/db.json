@@ -1,3 +1,37 @@
 [
+    {
+        "user": [
+            {
+                "id": "aaa",
+                "pw": "bbb",
+                "name": "human1",
+                "email": "human1@gmail.com",
+                "income": [
+                    {
+                        "date": "2024-06-09",
+                        "category": "allowance",
+                        "memo": "아싸 용돈"
+                    },
+                    {
+                        "date": "2024-06-10",
+                        "category": "salary",
+                        "memo": "아싸 월급"
+                    }
+                ],
+                "expense": [
+                    {
+                        "date": "2024-06-09",
+                        "category": "shopping",
+                        "memo": "옷 샀다"
+                    },
+                    {
+                        "date": "2024-06-10",
+                        "category": "food",
+                        "memo": "밥 줘"
+                    }
+                ]
+            }
+        ]
+    }
     
 ]
