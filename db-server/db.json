@@ -10,11 +10,13 @@
                     {
                         "date": "2024-06-09",
                         "category": "allowance",
+                        "amount" : 10000,
                         "memo": "아싸 용돈"
                     },
                     {
                         "date": "2024-06-10",
                         "category": "salary",
+                        "amount" : 14000,
                         "memo": "아싸 월급"
                     }
                 ],
@@ -22,11 +24,13 @@
                     {
                         "date": "2024-06-09",
                         "category": "shopping",
+                        "amount" : 20000,
                         "memo": "옷 샀다"
                     },
                     {
                         "date": "2024-06-10",
                         "category": "food",
+                        "amount" : 13000,
                         "memo": "밥 줘"
                     }
                 ]
