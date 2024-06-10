@@ -9,7 +9,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.4.21"
+    "@fullcalendar/core": "^6.1.14",
+    "@fullcalendar/vue3": "^6.1.14",
+    "axios": "^1.7.2",
+    "bootstrap": "^5.3.3",
+    "bootstrap-vue": "^2.23.1",
+    "express": "^4.19.2",
+    "vue": "^3.4.27",
+    "vue-router": "^4.0.13"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
