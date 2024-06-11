@@ -1,98 +1,104 @@
-[
-    {
-        "user": [
-            {
-                "id": "aaa",
-                "pw": "bbb",
-                "name": "human1",
-                "email": "human1@gmail.com",
-                "income": [
-                    {
-                        "date": "2024-05-01",
-                        "category": "etc",
-                        "amount": 9000,
-                        "memo": "친구한테 돈을 빌렸다"
-                    },
-                    {
-                        "date": "2024-06-09",
-                        "category": "allowance",
-                        "amount": 10000,
-                        "memo": "아싸 용돈"
-                    },
-                    {
-                        "date": "2024-06-10",
-                        "category": "salary",
-                        "amount": 14000,
-                        "memo": "아싸 월급"
-                    }
-                ],
-                "expense": [
-                    {
-                        "date": "2024-05-05",
-                        "category": "etc",
-                        "amount": 9000,
-                        "memo": "친구의 돈을 갚았다"
-                    },
-                    {
-                        "date": "2024-06-09",
-                        "category": "shopping",
-                        "amount": 20000,
-                        "memo": "옷 샀다"
-                    },
-                    {
-                        "date": "2024-06-10",
-                        "category": "food",
-                        "amount": 13000,
-                        "memo": "밥 줘"
-                    }
-                ]
-            },
-            {
-                "id": "qqq",
-                "pw": "www",
-                "name": "human2",
-                "email": "human2@naver.com",
-                "income": [
-                    {
-                        "date": "2024-05-01",
-                        "category": "etc",
-                        "amount": 9000,
-                        "memo": "친구한테 돈을 빌렸다"
-                    },
-                    {
-                        "date": "2024-06-09",
-                        "category": "allowance",
-                        "amount": 10000,
-                        "memo": "아싸 용돈"
-                    },
-                    {
-                        "date": "2024-06-10",
-                        "category": "salary",
-                        "amount": 14000,
-                        "memo": "아싸 월급"
-                    }
-                ],
-                "expense": [
-                    {
-                        "date": "2024-05-05",
-                        "category": "etc",
-                        "amount": 9000,
-                        "memo": "친구의 돈을 갚았다"
-                    },
-                    {
-                        "date": "2024-06-09",
-                        "category": "shopping",
-                        "amount": 20000,
-                        "memo": "옷 샀다"
-                    },
-                    {
-                        "date": "2024-06-10",
-                        "category": "food",
-                        "amount": 13000,
-                        "memo": "밥 줘"
-                    }
-                ]
-            }
-        ]
-    }
-]
+{
+
+    "user": [
+        {
+            "id": "aaa",
+            "pw": "bbb",
+            "name": "human1",
+            "email": "human1@gmail.com",
+            "income": [
+                {
+                    "date": "2024-05-01",
+                    "category": "etc",
+                    "amount": 9000,
+                    "memo": "친구한테 돈을 빌렸다"
+                },
+                {
+                    "date": "2024-06-09",
+                    "category": "allowance",
+                    "amount": 10000,
+                    "memo": "아싸 용돈"
+                },
+                {
+                    "date": "2024-06-10",
+                    "category": "salary",
+                    "amount": 14000,
+                    "memo": "아싸 월급"
+                },
+                {
+                    "date": "2024-06-11",
+                    "category": "allowance",
+                    "amount": 13000,
+                    "memo": "용돈2"
+                }
+            ],
+            "expense": [
+                {
+                    "date": "2024-05-05",
+                    "category": "etc",
+                    "amount": 9000,
+                    "memo": "친구의 돈을 갚았다"
+                },
+                {
+                    "date": "2024-06-09",
+                    "category": "shopping",
+                    "amount": 20000,
+                    "memo": "옷 샀다"
+                },
+                {
+                    "date": "2024-06-10",
+                    "category": "food",
+                    "amount": 13000,
+                    "memo": "밥 줘"
+                }
+            ]
+        },
+        {
+            "id": "qqq",
+            "pw": "www",
+            "name": "human2",
+            "email": "human2@naver.com",
+            "income": [
+                {
+                    "date": "2024-05-01",
+                    "category": "etc",
+                    "amount": 9000,
+                    "memo": "친구한테 돈을 빌렸다"
+                },
+                {
+                    "date": "2024-06-09",
+                    "category": "allowance",
+                    "amount": 10000,
+                    "memo": "아싸 용돈"
+                },
+                {
+                    "date": "2024-06-10",
+                    "category": "salary",
+                    "amount": 14000,
+                    "memo": "아싸 월급"
+                }
+            ],
+            "expense": [
+                {
+                    "date": "2024-05-05",
+                    "category": "etc",
+                    "amount": 9000,
+                    "memo": "친구의 돈을 갚았다"
+                },
+                {
+                    "date": "2024-06-09",
+                    "category": "shopping",
+                    "amount": 20000,
+                    "memo": "옷 샀다"
+                },
+                {
+                    "date": "2024-06-10",
+                    "category": "food",
+                    "amount": 13000,
+                    "memo": "밥 줘"
+                }
+            ]
+        }
+    ]
+    
+}
