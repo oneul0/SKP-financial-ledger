@@ -11240,4 +11240,29 @@ body {
   width: 20px !important;
   font-size: 0.75rem;
   border-radius: 0.375rem !important;
+
+}
+
+
+
+.app-dark-mode {
+  background-color:rgb(49, 51, 53);
+  color: white;
+}
+
+.dark-mode {
+  background-color:rgb(49, 51, 53);
+  
+}
+
+.small-mode{
+  font-size: smaller;
+}
+
+.medium-mode{
+  font-size: medium;
+}
+
+.large-mode{
+  font-size: larger;
 }
