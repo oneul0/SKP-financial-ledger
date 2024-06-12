@@ -6,11 +6,12 @@
 
 <script>
 import GraphsComp from './components/GraphsComp.vue';
+import HomeView from './views/HomeView.vue';
 
 export default {
   name: 'App',
   components: {
-    GraphsComp,
+    GraphsComp, HomeView
   },
 };
 </script>

@@ -1,30 +1,32 @@
 <template>
-    <div class="col-lg-6" style="width: 50rem; height: 50rem;">
+    <!-- <div class="col-lg-6" style="width: 50rem; height: 50rem;"> -->
         <div class="card mb-4">
             <div class="card-header">
                 <h3 style="text-align: center;">{{ graphTitle }}</h3>
-                
+
             </div>
             <div class="card-body">
-                <canvas id="myChart" width="100%" height="100%"></canvas>
+                <canvas id="myChart" width="50rem" height="50rem"></canvas>
             </div>
             <h3 class="card-footer small text-muted">{{ totalText }} : {{ totalAmount }}원</h3>
+            <div class="chart-type-selector">
+                <label>
+                    <input type="radio" name="chartType" value="income" v-model="selectedChart" @change="updateChart">
+                    수입
+                </label>
+                <label>
+                    <input type="radio" name="chartType" value="expense" v-model="selectedChart" @change="updateChart">
+                    지출
+                </label>
+                <label>
+                    <input type="radio" name="chartType" value="netIncome" v-model="selectedChart"
+                        @change="updateChart">순수익
+                </label>
+            </div>
         </div>
 
-        <div class="chart-type-selector">
-            <label>
-                <input type="radio" name="chartType" value="income" v-model="selectedChart" @change="updateChart">
-                수입
-            </label>
-            <label>
-                <input type="radio" name="chartType" value="expense" v-model="selectedChart" @change="updateChart">
-                지출
-            </label>
-            <label>
-                <input type="radio" name="chartType" value="netIncome" v-model="selectedChart" @change="updateChart">순수익
-            </label>
-        </div>
-    </div>
+
+    <!-- </div> -->
 </template>
 
 <script>
@@ -233,17 +235,17 @@ export default {
                 });
             } else {
 
-                if(selectedChart.value === 'income'){
+                if (selectedChart.value === 'income') {
                     graphTitle.value = '이번 달의 총 수입';
                     totalText.value = '최근 1달 지출 총액';
                     totalAmount.value = incomeData.reduce((ac, curVal) => ac + curVal, 0);
                 }
-                else{
+                else {
                     graphTitle.value = '이번 달의 총 지출';
                     totalText.value = '최근 1달 수입 총액';
                     totalAmount.value = expenseData.reduce((ac, curVal) => ac + curVal, 0);
                 }
-                
+
                 // console.log(totalAmount.value);
                 myDoughnutChart = new Chart(ctx, {
                     type: 'doughnut',

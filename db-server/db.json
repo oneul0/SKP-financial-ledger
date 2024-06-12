@@ -58,6 +58,12 @@
             ],
             "expense": [
                 {
+                    "date": "2024-04-01",
+                    "category": "etc",
+                    "amount": 10000,
+                    "memo": "친구한테 돈을 갚았다"
+                },
+                {
                     "date": "2024-05-05",
                     "category": "etc",
                     "amount": 9000,
