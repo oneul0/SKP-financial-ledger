@@ -1,21 +1,24 @@
 <template>
-    <div class="col-lg-6">
+    <div class="col-lg-6" style="width: 50rem; height: 50rem;">
         <div class="card mb-4">
-            <div class="card-header" v-bind="graphPeriod">
-                {{ graphPeriod }}
+            <div class="card-header">
+                <h3 style="text-align: center;">{{ graphTitle }}</h3>
+                
             </div>
             <div class="card-body">
-                <canvas id="myChart" width="100%" height="50lm"></canvas>
+                <canvas id="myChart" width="100%" height="100%"></canvas>
             </div>
-            <div class="card-footer small text-muted" v-bind:text-content="totalAmount">{{ totalAmount }}</div>
+            <h3 class="card-footer small text-muted">{{ totalText }} : {{ totalAmount }}원</h3>
         </div>
 
-        <div>
+        <div class="chart-type-selector">
             <label>
-                <input type="radio" name="chartType" value="income" v-model="selectedChart" @change="updateChart"> 수입
+                <input type="radio" name="chartType" value="income" v-model="selectedChart" @change="updateChart">
+                수입
             </label>
             <label>
-                <input type="radio" name="chartType" value="expense" v-model="selectedChart" @change="updateChart"> 소비
+                <input type="radio" name="chartType" value="expense" v-model="selectedChart" @change="updateChart">
+                지출
             </label>
             <label>
                 <input type="radio" name="chartType" value="netIncome" v-model="selectedChart" @change="updateChart">순수익
@@ -23,9 +26,6 @@
         </div>
     </div>
 </template>
-<!-- 
-2. 단위 기간 표시(startdate, enddate(오늘로))
--->
 
 <script>
 import { ref, onMounted, watch } from 'vue';
@@ -41,11 +41,13 @@ export default {
         const selectedChart = ref('expense'); // 기본 값으로 expense 설정
         // 현재 접속한 유저 id
         const currentUser = ref('aaa'); //테스트용 임시 할당
+        // const currentUser = window.localStorage.getItem('id'); 
         // 현재 접속한 유저 정보
         const currentUserInfo = ref({ income: [], expense: [], netIncome: [], }); //월별 값이 들어가야함
         const isUserinfoGot = ref(false); // 현재 접속한 유저의 정보를 가져왔는지 판단하는 flag 변수
-        let totalAmount = ref(0); //하단 금액 출력        
-        let graphPeriod = ref(''); //그래프 단위 기간
+        let totalAmount = ref(0); // 그래프 하단 금액 출력  
+        let totalText = ref(''); // 그래프 하단 금액 설명
+        let graphTitle = ref(''); //그래프 단위 기간
         //차트 객체(라디오 버튼으로 차트 변경하기 위한 객체 별도 선언)
         let myDoughnutChart = null;
         let myMixedChart = null;
@@ -71,7 +73,7 @@ export default {
                 if (!res.data) { return console.log("일치하는 id 검색 실패"); }
                 isUserinfoGot.value = false;
 
-                //30일 전 날짜 구하기(소비/수입 카테고리)
+                //30일 전 날짜 구하기(지출/수입 카테고리)
                 const date = new Date();
                 date.setDate(date.getDate() - 30);
                 const startDate = date.toISOString().split('T')[0];
@@ -91,7 +93,7 @@ export default {
                     }
                 });
 
-                // 소비 카테고리 필터링
+                // 지출 카테고리 필터링
                 await res.data[0].expense.forEach((exp) => {
                     if (new Date(exp.date) >= new Date(startDate)) {
                         currentUserInfo.value.expense.push(exp);
@@ -111,7 +113,7 @@ export default {
                     }
                 });
 
-                // 소비
+                // 지출
                 res.data[0].expense.forEach((exp) => {
                     if (new Date(exp.date) >= new Date(startNetDate)) {
                         const monthKey = `${new Date(exp.date).getFullYear()}-${(new Date(exp.date).getMonth() + 1).toString().padStart(2, '0')}`;
@@ -119,7 +121,7 @@ export default {
                             netIncomeMap.set(monthKey, { income: 0, expense: 0 });
                         }
                         const current = netIncomeMap.get(monthKey);
-                        netIncomeMap.set(monthKey, { ...current, expense: current.expense + exp.amount }); //소비 종합
+                        netIncomeMap.set(monthKey, { ...current, expense: current.expense + exp.amount }); //지출 종합
                     }
                 });
 
@@ -169,7 +171,7 @@ export default {
                 }
             });
 
-            //소비 종합
+            //지출 종합
             currentUserInfo.value.expense.forEach((curExpense) => {
                 if (expenseMap.has(curExpense.category)) {
                     expenseMap.set(curExpense.category, expenseMap.get(curExpense.category) + curExpense.amount);
@@ -191,23 +193,25 @@ export default {
             const netIncomeData = currentUserInfo.value.netIncome.map(item => item.netIncome);
             // console.log(expenseData);
 
-            //차트 초기화(파괴)
+            //차트 초기화
             if (myMixedChart) { myMixedChart.destroy(); }
             if (myDoughnutChart) { myDoughnutChart.destroy(); }
 
             const ctx = document.getElementById('myChart').getContext('2d');
 
             if (selectedChart.value === 'netIncome') {
+                graphTitle.value = '최근 3달간 순수익';
+                totalText.value = '최근 3달 순수익';
                 totalAmount.value = netIncomeData.reduce((ac, curVal) => { return ac + curVal }, 0);
                 myMixedChart = new Chart(ctx, {
                     type: 'bar',
                     data: {
                         datasets: [{
-                            label: '월간 소비',
+                            label: '월간 지출',
                             data: expenseData,
                             order: 2,
                         }, {
-                            label: '월별 총수익',
+                            label: '월간 순수익',
                             data: netIncomeData,
                             type: 'line',
                             order: 1
@@ -221,15 +225,25 @@ export default {
                                 position: 'top',
                             },
                             title: {
-                                display: true,
-                                text: '월별 소비 및 총수익',
+                                display: false,
+                                text: '월별 지출 및 총수익',
                             },
                         },
                     },
                 });
             } else {
 
-                totalAmount.value = selectedChart.value === 'income' ? incomeData.reduce((ac, curVal) => ac + curVal, 0) : expenseData.reduce((ac, curVal) => ac + curVal, 0);
+                if(selectedChart.value === 'income'){
+                    graphTitle.value = '이번 달의 총 수입';
+                    totalText.value = '최근 1달 지출 총액';
+                    totalAmount.value = incomeData.reduce((ac, curVal) => ac + curVal, 0);
+                }
+                else{
+                    graphTitle.value = '이번 달의 총 지출';
+                    totalText.value = '최근 1달 수입 총액';
+                    totalAmount.value = expenseData.reduce((ac, curVal) => ac + curVal, 0);
+                }
+                
                 // console.log(totalAmount.value);
                 myDoughnutChart = new Chart(ctx, {
                     type: 'doughnut',
@@ -267,7 +281,7 @@ export default {
                             },
                             title: {
                                 display: true,
-                                text: selectedChart.value === 'income' ? '월간 수입 카테고리' : '월간 소비 카테고리',
+                                text: selectedChart.value === 'income' ? '월간 수입 카테고리' : '월간 지출 카테고리',
                             },
                         },
                     },
@@ -286,7 +300,8 @@ export default {
         return {
             selectedChart,
             totalAmount,
-            graphPeriod
+            totalText,
+            graphTitle
         };
     },
 };
