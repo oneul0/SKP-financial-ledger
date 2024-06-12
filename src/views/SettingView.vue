@@ -81,29 +81,28 @@
                                                 <div class="d-grid"><button type="submit" class="btn btn-primary btn-block">Update</button></div>
                                             </div>
 
-
-
                                             <br/><hr/><br/>
 
-
-                                            <!-- -----------앱 설정 부분----------- -->
-                                            <h3>앱 설정</h3>
-
-                                            <!-- 다크모드 스위치 -->
-                                            <div class="form-check form-switch">
-                                                <label class="form-check-label" for="darkMode">다크모드</label>
-                                                <input v-model="darkMode" class="form-check-input" type="checkbox" role="switch" id="darkMode">
-                                            </div>
-
-                                            <!-- 글자크기 설정 버튼 -->
-                                             <div class="mt-4 mb-0">
-                                                <label class="form-check-label" for="fontBtn">글자크기 설정</label><br/>
-                                                <button @click="fontSet($event)" value="small" class="btn btn-outline-primary btn-sm" id="fontBtn-sm">작게</button> &nbsp;
-                                                <button @click="fontSet($event)" value="medium" class="btn btn-outline-primary" id="fontBtn-md">중간</button> &nbsp;
-                                                <button @click="fontSet($event)" value="large" class="btn btn-outline-primary btn-lg" id="fontBtn-lg">크게</button>
-                                            </div>
-
                                         </form>
+
+                                        <!-- -----------앱 설정 부분----------- -->
+                                        <h3>앱 설정</h3>
+
+                                        <!-- 다크모드 스위치 -->
+                                        <div class="form-check form-switch">
+                                            <label class="form-check-label" for="darkMode">다크모드</label>
+                                            <input v-model="darkMode" class="form-check-input" type="checkbox" role="switch" id="darkMode">
+                                        </div>
+
+                                        <!-- 글자크기 설정 버튼 -->
+                                        <div class="mt-4 mb-0">
+                                            <label class="form-check-label" for="fontBtn">글자크기 설정</label><br/>
+                                            <button @click="fontSet($event)" value="small" class="btn btn-outline-primary btn-sm" id="fontBtn-sm">작게</button> &nbsp;
+                                            <button @click="fontSet($event)" value="medium" class="btn btn-outline-primary" id="fontBtn-md">중간</button> &nbsp;
+                                            <button @click="fontSet($event)" value="large" class="btn btn-outline-primary btn-lg" id="fontBtn-lg">크게</button>
+                                        </div>
+
+
                                     </div>
                                 </div>
                             </div>
@@ -227,6 +226,8 @@ export default {
                     .then(res=>{
                         console.log('response:', res.data);
                         alert("회원정보가 성공적으로 수정되었습니다.");
+                        // Home으로 이동
+                        this.$router.push('/');
                     })
                     .catch(err=>alert(err))
                 
