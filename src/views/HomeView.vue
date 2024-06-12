@@ -4,11 +4,14 @@
         <a href="/login">LOGIN으로 이동</a><br/>
         <a href="/signUp">SIGNUP으로 이동</a><br/>
         <a href="/setting">SETTING으로 이동</a>
+
+
     </div>
 </template>
 
 
 <script>
+
 export default {
     
 }
