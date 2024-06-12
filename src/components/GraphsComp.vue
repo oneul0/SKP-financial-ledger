@@ -18,7 +18,7 @@
                 Pie Chart Example
             </div>
             <div class="card-body">
-                <canvas id="myPieChart" width="100%" height="50"></canvas>
+                <canvas id="myChart" width="100%" height="50"></canvas>
             </div>
             <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
@@ -41,14 +41,10 @@ export default {
         const selectedChart = ref('expense'); // 기본 값으로 expense 설정
 
         // 차트 label 카테고리
-        // const incomeCategory = ['기타 수입', '용돈', '근로소득', '금융수입']; // 수입 카테고리
-        // const expenseCategory = ['기타 지출', '쇼핑', '의료/건강', '교통/통신', '식비', '금융 지출']; //지출 카테고리
-        // const netIncome = ['수입', '소비']; //총 수익 비교 카테고리
-
         const labelCategory = {
             incomeCategory: ['기타 수입', '용돈', '근로소득', '금융수입'], // 수입 카테고리
             expenseCategory: ['기타 지출', '쇼핑', '의료/건강', '교통/통신', '식비', '금융 지출'], //지출 카테고리
-            netIncome: ['수입', '소비'] //총 수익 비교 카테고리
+            netIncomeCategory: [] //총 수익 레이블(월별 이름 들어가야함, 1월, 2월 등)
         }
 
         // 현재 접속한 유저 id
@@ -56,22 +52,20 @@ export default {
         // 현재 접속한 유저 정보
         const currentUserInfo = ref({
             income: [],
-            expense: []
+            expense: [],
+            netIncome: [], //월별 값이 들어가야함
         });
         // 현재 접속한 유저의 정보를 가져왔는지 판단하는 flag 변수
         const isUserinfoGot = ref(false);
-        // // 현재 접속한 유저의 수입 카테고리별 금액(map에서 변환된 배열)
-        // const curUserIncome = ref([]);
-        // // 현재 접속한 유저의 지출 카테고리별 금액(map에서 변환된 배열)
-        // const curUserExpense = ref([]);
-
+        // 현재 접속한 유저의 카테고리별 금액
         const curUserChartVal = ref({
-            curUserIncome : [], // 현재 접속한 유저의 수입 카테고리별 금액(map에서 변환된 배열)
-            curUserExpense : [], // 현재 접속한 유저의 지출 카테고리별 금액(map에서 변환된 배열)
+            curUserIncome: [], // 현재 접속한 유저의 수입 카테고리별 금액(map에서 변환된 배열)
+            curUserExpense: [], // 현재 접속한 유저의 지출 카테고리별 금액(map에서 변환된 배열)
         });
 
         //차트 객체(라디오 버튼으로 차트 변경하기 위한 객체 별도 선언)
-        let myPieChart = null;
+        let myDoughnutChart = null;
+        let myMixedChart = null;
 
         // id에 해당되는 유저 정보 가져오기 및 arrangeInfo() 호출
         const getInfo = async () => {
@@ -82,10 +76,15 @@ export default {
                     console.log("일치하는 id 검색 실패");
                 }
                 isUserinfoGot.value = false;
-                //30일 전 날짜 구하기
+                //30일 전 날짜 구하기(소비/수입 카테고리)
                 const date = new Date();
                 date.setDate(date.getDate() - 30);
                 const startDate = date.toISOString().split('T')[0];
+
+                //90일 전 날짜 구하기(총수익 카테고리)
+                const netDate = new Date();
+                netDate.setDate(date.getDate() - 90);
+                const startNetDate = netDate.toISOString().split('T')[0];
 
                 // 최근 30일 데이터로 필터링
                 // 수입 카테고리 필터링
@@ -94,7 +93,6 @@ export default {
                         // currentUser.value = us.id;
                         currentUserInfo.value.income.push(inc);
                         // console.log(inc);
-
                     }
                 });
                 // console.log(currentUserInfo.value);
@@ -108,6 +106,50 @@ export default {
 
                     }
                 });
+
+                //최근 90일 데이터로 필터링
+                //데이터 불러오기
+
+                //데이터의 인덱스(끝에서 3번째)별로 최근 3달 간 소비 동향
+
+                //만약 최근 90일 안의 날짜이면
+
+                //연도와 월 추출하여 label에 넣기
+                const netIncomeMap = new Map();
+
+                res.data[0].income.forEach((inc) => {
+                    if (new Date(inc.date) >= new Date(startNetDate)) {
+                        const monthKey = `${new Date(inc.date).getFullYear()}-${(new Date(inc.date).getMonth() + 1).toString().padStart(2, '0')}`;
+                        if (!netIncomeMap.has(monthKey)) {
+                            netIncomeMap.set(monthKey, { income: 0, expense: 0 });
+                        }
+                        const current = netIncomeMap.get(monthKey);
+                        netIncomeMap.set(monthKey, { ...current, income: current.income + inc.amount });
+                    }
+                });
+
+                res.data[0].expense.forEach((exp) => {
+                    if (new Date(exp.date) >= new Date(startNetDate)) {
+                        const monthKey = `${new Date(exp.date).getFullYear()}-${(new Date(exp.date).getMonth() + 1).toString().padStart(2, '0')}`;
+                        if (!netIncomeMap.has(monthKey)) {
+                            netIncomeMap.set(monthKey, { income: 0, expense: 0 });
+                        }
+                        const current = netIncomeMap.get(monthKey);
+                        netIncomeMap.set(monthKey, { ...current, expense: current.expense + exp.amount });
+                    }
+                });
+
+                // netIncomeCategory와 netIncome 배열에 값 추가
+                labelCategory.netIncomeCategory = Array.from(netIncomeMap.keys());
+                currentUserInfo.value.netIncome = Array.from(netIncomeMap.entries()).map(([month, data]) => ({
+                    month,
+                    ...data,
+                    netIncome: data.income - data.expense
+                }));
+
+                console.log(currentUserInfo.value.netIncome[0].income);
+
+
 
                 // 가져온 데이터가 있는지 확인
                 if (currentUserInfo.value.income.length === 0 || currentUserInfo.value.expense.length === 0) {
@@ -128,7 +170,7 @@ export default {
         };
 
         // 카테고리별 수입/지출 금액 종합 및 data()에 할당
-        const arrangeInfo = () => {
+        const arrangeInfo = async () => {
             if (isUserinfoGot.value) {
                 // 카테고리별 수입 금액 총합
                 const incomeMap = new Map([
@@ -150,6 +192,7 @@ export default {
 
                 // income 배열이 존재하는지 확인
                 if (Array.isArray(currentUserInfo.value.income)) {
+                    // 수입 종합
                     currentUserInfo.value.income.forEach((curIncome) => {
                         if (incomeMap.has(curIncome.category)) {
                             incomeMap.set(curIncome.category, incomeMap.get(curIncome.category) + curIncome.amount);
@@ -161,6 +204,7 @@ export default {
 
                 // expense 배열이 존재하는지 확인
                 if (Array.isArray(currentUserInfo.value.expense)) {
+                    // 소비 종합
                     currentUserInfo.value.expense.forEach((curExpense) => {
                         if (expenseMap.has(curExpense.category)) {
                             expenseMap.set(curExpense.category, expenseMap.get(curExpense.category) + curExpense.amount);
@@ -182,54 +226,94 @@ export default {
 
         // 차트 그리기
         const updateChart = () => {
-            const ctx = document.getElementById('myPieChart').getContext('2d');
-
             //차트 초기화(파괴)
-            if (myPieChart) {
-                myPieChart.destroy();
+            if (myMixedChart) {
+                myMixedChart.destroy();
+            }
+            if (myDoughnutChart) {
+                myDoughnutChart.destroy();
             }
 
-            myPieChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: selectedChart.value === 'netIncome' ? labelCategory.netIncome : (selectedChart.value === 'income' ? labelCategory.incomeCategory : labelCategory.expenseCategory),
-                    datasets: [
-                        {
-                            label: '#금액',
-                            data: selectedChart.value === 'netIncome' ? curUserChartVal.netIncome : (selectedChart.value === 'income' ? curUserChartVal.curUserIncome : curUserChartVal.curUserExpense),
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)',
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)',
-                            ],
-                            borderWidth: 1,
-                        },
-                    ],
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                        },
-                        title: {
-                            display: true,
-                            text: '수입 및 지출 그래프',
+            const ctx = document.getElementById('myChart').getContext('2d');
+
+            if (selectedChart.value === 'netIncome') {
+                // income, netIncome 추출
+                const expenseData = currentUserInfo.value.netIncome.map(item => item.expense);
+                const netIncomeData = currentUserInfo.value.netIncome.map(item => item.netIncome);
+                myMixedChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        datasets: [{
+                            label: '월간 소비',
+                            data: expenseData,
+                            order: 2,
+                        }, {
+                            label: '월별 총수익',
+                            data: netIncomeData,
+                            type: 'line', // 이 데이터집합이 선형으로 변경됩니다
+                            order: 1
+                        }],
+                        labels: labelCategory.netIncomeCategory
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: '월별 소비 및 총수익',
+                            },
                         },
                     },
-                },
-            });
+                });
+            } else {
+                myDoughnutChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: selectedChart.value === 'income' ? labelCategory.incomeCategory : labelCategory.expenseCategory,
+                        datasets: [
+                            {
+                                label: '#금액',
+                                data: selectedChart.value === 'income' ? curUserChartVal.curUserIncome : curUserChartVal.curUserExpense,
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)',
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)',
+                                ],
+                                borderWidth: 1,
+                            },
+                        ],
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: '수입 및 지출 그래프',
+                            },
+                        },
+                    },
+                });
+            }
+
+
+
         };
 
         onMounted(() => {

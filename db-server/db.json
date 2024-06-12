@@ -30,6 +30,24 @@
                     "category": "allowance",
                     "amount": 13000,
                     "memo": "용돈2"
+                },
+                {
+                    "date": "2024-06-11",
+                    "category": "allowance",
+                    "amount": 13000,
+                    "memo": "용돈3"
+                },
+                {
+                    "date": "2024-06-11",
+                    "category": "allowance",
+                    "amount": 13000,
+                    "memo": "용돈4"
+                },
+                {
+                    "date": "2024-06-11",
+                    "category": "allowance",
+                    "amount": 13000,
+                    "memo": "용돈5"
                 }
             ],
             "expense": [
