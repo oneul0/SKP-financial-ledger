@@ -1,32 +1,36 @@
 <template>
     <div class="col-lg-6">
+        <div class="card mb-4">
+            <div class="card-header" v-bind="graphPeriod">
+                {{ graphPeriod }}
+                <!-- <i class="fas fa-chart-pie me-1"></i> -->
+                <!-- <label v-bind="graphPeriod">{{ graphPeriod }}</label> -->
+                <!-- 수입 / 지출 / 순수익 그래프 -->
+
+            </div>
+            <div class="card-body">
+                <canvas id="myChart" width="100%" height="50lm"></canvas>
+            </div>
+            <div class="card-footer small text-muted" v-bind:text-content="total">{{ total }}</div>
+        </div>
+
+        <!-- css 추가하기 -->
         <div>
             <label>
                 <input type="radio" name="chartType" value="income" v-model="selectedChart" @change="updateChart"> 수입
             </label>
             <label>
-                <input type="radio" name="chartType" value="expense" v-model="selectedChart" @change="updateChart"> 지출
+                <input type="radio" name="chartType" value="expense" v-model="selectedChart" @change="updateChart"> 소비
             </label>
             <label>
-                <input type="radio" name="chartType" value="netIncome" v-model="selectedChart" @change="updateChart">
-                순수익
+                <input type="radio" name="chartType" value="netIncome" v-model="selectedChart" @change="updateChart">순수익
             </label>
-        </div>
-        <div class="card mb-4">
-            <div class="card-header">
-                <i class="fas fa-chart-pie me-1"></i>
-                Pie Chart Example
-            </div>
-            <div class="card-body">
-                <canvas id="myChart" width="100%" height="50"></canvas>
-            </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
     </div>
 </template>
 <!-- 
-1. 순수익(수입 - 소비)을 보여주는 막대 그래프
 2. 단위 기간 표시(startdate, enddate(오늘로))
+3. 총 금액 표시
 -->
 
 <script>
@@ -38,7 +42,13 @@ Chart.register(...registerables);
 export default {
     name: 'GraphsComp',
     setup() {
+        //선택된 차트(라디오 버튼)
         const selectedChart = ref('expense'); // 기본 값으로 expense 설정
+
+        //하단 금액 출력
+        let total = ref(0);
+        //그래프 단위 기간
+        let graphPeriod = ref('');
 
         // 차트 label 카테고리
         const labelCategory = {
@@ -108,15 +118,9 @@ export default {
                 });
 
                 //최근 90일 데이터로 필터링
-                //데이터 불러오기
-
-                //데이터의 인덱스(끝에서 3번째)별로 최근 3달 간 소비 동향
-
-                //만약 최근 90일 안의 날짜이면
-
-                //연도와 월 추출하여 label에 넣기
                 const netIncomeMap = new Map();
 
+                // 수입
                 res.data[0].income.forEach((inc) => {
                     if (new Date(inc.date) >= new Date(startNetDate)) {
                         const monthKey = `${new Date(inc.date).getFullYear()}-${(new Date(inc.date).getMonth() + 1).toString().padStart(2, '0')}`;
@@ -128,6 +132,7 @@ export default {
                     }
                 });
 
+                // 소비
                 res.data[0].expense.forEach((exp) => {
                     if (new Date(exp.date) >= new Date(startNetDate)) {
                         const monthKey = `${new Date(exp.date).getFullYear()}-${(new Date(exp.date).getMonth() + 1).toString().padStart(2, '0')}`;
@@ -147,7 +152,7 @@ export default {
                     netIncome: data.income - data.expense
                 }));
 
-                console.log(currentUserInfo.value.netIncome[0].income);
+                // console.log(currentUserInfo.value.netIncome[0].income);
 
 
 
@@ -226,6 +231,11 @@ export default {
 
         // 차트 그리기
         const updateChart = () => {
+            // income, netIncome 추출
+            const expenseData = currentUserInfo.value.netIncome.map(item => item.expense);
+            const incomeData = currentUserInfo.value.netIncome.map(item => item.income);
+            const netIncomeData = currentUserInfo.value.netIncome.map(item => item.netIncome);
+            console.log(expenseData);
             //차트 초기화(파괴)
             if (myMixedChart) {
                 myMixedChart.destroy();
@@ -237,9 +247,8 @@ export default {
             const ctx = document.getElementById('myChart').getContext('2d');
 
             if (selectedChart.value === 'netIncome') {
-                // income, netIncome 추출
-                const expenseData = currentUserInfo.value.netIncome.map(item => item.expense);
-                const netIncomeData = currentUserInfo.value.netIncome.map(item => item.netIncome);
+
+                total.value = netIncomeData.reduce((ac, curVal) => { return ac + curVal }, 0);
                 myMixedChart = new Chart(ctx, {
                     type: 'bar',
                     data: {
@@ -250,7 +259,7 @@ export default {
                         }, {
                             label: '월별 총수익',
                             data: netIncomeData,
-                            type: 'line', // 이 데이터집합이 선형으로 변경됩니다
+                            type: 'line',
                             order: 1
                         }],
                         labels: labelCategory.netIncomeCategory
@@ -269,6 +278,13 @@ export default {
                     },
                 });
             } else {
+                if (selectedChart.value === 'income') {
+                    total.value = incomeData.reduce((ac, curVal) => { return ac + curVal }, 0);
+                }else{
+                    total.value = expenseData.reduce((ac, curVal) => { return ac + curVal }, 0);
+                }
+                
+                console.log(total.value);
                 myDoughnutChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
@@ -305,7 +321,7 @@ export default {
                             },
                             title: {
                                 display: true,
-                                text: '수입 및 지출 그래프',
+                                text: selectedChart.value === 'income' ? '월간 수입 카테고리' : '월간 소비 카테고리',
                             },
                         },
                     },
@@ -328,15 +344,17 @@ export default {
             selectedChart,
             // incomeCategory,
             // expenseCategory,
-            currentUser,
-            currentUserInfo,
-            isUserinfoGot,
+            // currentUser,
+            // currentUserInfo,
+            // isUserinfoGot,
             // curUserIncome,
             // curUserExpense,
             // curUserChartVal,
-            getInfo,
-            arrangeInfo,
-            updateChart,
+            // getInfo,
+            // arrangeInfo,
+            // updateChart,
+            total,
+            graphPeriod
         };
     },
 };

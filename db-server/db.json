@@ -8,6 +8,12 @@
             "email": "human1@gmail.com",
             "income": [
                 {
+                    "date": "2024-04-01",
+                    "category": "etc",
+                    "amount": 9000,
+                    "memo": "친구한테 돈을 빌렸다"
+                },
+                {
                     "date": "2024-05-01",
                     "category": "etc",
                     "amount": 9000,
