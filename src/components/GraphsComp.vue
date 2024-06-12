@@ -8,7 +8,8 @@
                 <input type="radio" name="chartType" value="expense" v-model="selectedChart" @change="updateChart"> 지출
             </label>
             <label>
-                <input type="radio" name="chartType" value="netIncome" v-model="selectedChart" @change="updateChart"> 순수익
+                <input type="radio" name="chartType" value="netIncome" v-model="selectedChart" @change="updateChart">
+                순수익
             </label>
         </div>
         <div class="card mb-4">
@@ -40,8 +41,15 @@ export default {
         const selectedChart = ref('expense'); // 기본 값으로 expense 설정
 
         // 차트 label 카테고리
-        const incomeCategory = ['기타 수입', '용돈', '근로소득', '금융수입']; // 수입 카테고리
-        const expenseCategory = ['기타 지출', '쇼핑', '의료/건강', '교통/통신', '식비', '금융 지출']; //지출 카테고리
+        // const incomeCategory = ['기타 수입', '용돈', '근로소득', '금융수입']; // 수입 카테고리
+        // const expenseCategory = ['기타 지출', '쇼핑', '의료/건강', '교통/통신', '식비', '금융 지출']; //지출 카테고리
+        // const netIncome = ['수입', '소비']; //총 수익 비교 카테고리
+
+        const labelCategory = {
+            incomeCategory: ['기타 수입', '용돈', '근로소득', '금융수입'], // 수입 카테고리
+            expenseCategory: ['기타 지출', '쇼핑', '의료/건강', '교통/통신', '식비', '금융 지출'], //지출 카테고리
+            netIncome: ['수입', '소비'] //총 수익 비교 카테고리
+        }
 
         // 현재 접속한 유저 id
         const currentUser = ref('aaa'); //테스트용 임시 할당
@@ -52,10 +60,15 @@ export default {
         });
         // 현재 접속한 유저의 정보를 가져왔는지 판단하는 flag 변수
         const isUserinfoGot = ref(false);
-        // 현재 접속한 유저의 수입 카테고리별 금액(map에서 변환된 배열)
-        const curUserIncome = ref([]);
-        // 현재 접속한 유저의 지출 카테고리별 금액(map에서 변환된 배열)
-        const curUserExpense = ref([]);
+        // // 현재 접속한 유저의 수입 카테고리별 금액(map에서 변환된 배열)
+        // const curUserIncome = ref([]);
+        // // 현재 접속한 유저의 지출 카테고리별 금액(map에서 변환된 배열)
+        // const curUserExpense = ref([]);
+
+        const curUserChartVal = ref({
+            curUserIncome : [], // 현재 접속한 유저의 수입 카테고리별 금액(map에서 변환된 배열)
+            curUserExpense : [], // 현재 접속한 유저의 지출 카테고리별 금액(map에서 변환된 배열)
+        });
 
         //차트 객체(라디오 버튼으로 차트 변경하기 위한 객체 별도 선언)
         let myPieChart = null;
@@ -81,7 +94,7 @@ export default {
                         // currentUser.value = us.id;
                         currentUserInfo.value.income.push(inc);
                         // console.log(inc);
-                        isUserinfoGot.value = true;
+
                     }
                 });
                 // console.log(currentUserInfo.value);
@@ -92,9 +105,20 @@ export default {
                         // currentUser.value = us.id;
                         currentUserInfo.value.expense.push(exp);
                         // console.log(inc);
-                        isUserinfoGot.value = true;
+
                     }
                 });
+
+                // 가져온 데이터가 있는지 확인
+                if (currentUserInfo.value.income.length === 0 || currentUserInfo.value.expense.length === 0) {
+                    // console.log(currentUserInfo.value.income.length+'\n');
+                    // console.log(currentUserInfo.value.expense.length);
+                    console.log("비었습니다.");
+                } else {
+                    // console.log(currentUserInfo.value.income.length+'\n');
+                    // console.log(currentUserInfo.value.expense.length);
+                    isUserinfoGot.value = true;
+                }
 
                 arrangeInfo();
 
@@ -146,8 +170,9 @@ export default {
                     console.log('expense 데이터가 존재하지 않습니다.');
                 }
 
-                curUserIncome.value = Array.from(incomeMap.values());
-                curUserExpense.value = Array.from(expenseMap.values());
+                // 배열로 변환
+                curUserChartVal.curUserIncome = Array.from(incomeMap.values());
+                curUserChartVal.curUserExpense = Array.from(expenseMap.values());
 
                 updateChart();
             } else {
@@ -167,11 +192,11 @@ export default {
             myPieChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: selectedChart.value === 'income' ? incomeCategory : expenseCategory,
+                    labels: selectedChart.value === 'netIncome' ? labelCategory.netIncome : (selectedChart.value === 'income' ? labelCategory.incomeCategory : labelCategory.expenseCategory),
                     datasets: [
                         {
                             label: '#금액',
-                            data: selectedChart.value === 'income' ? curUserIncome.value : curUserExpense.value,
+                            data: selectedChart.value === 'netIncome' ? curUserChartVal.netIncome : (selectedChart.value === 'income' ? curUserChartVal.curUserIncome : curUserChartVal.curUserExpense),
                             backgroundColor: [
                                 'rgba(255, 99, 132, 0.2)',
                                 'rgba(54, 162, 235, 0.2)',
@@ -217,13 +242,14 @@ export default {
 
         return {
             selectedChart,
-            incomeCategory,
-            expenseCategory,
+            // incomeCategory,
+            // expenseCategory,
             currentUser,
             currentUserInfo,
             isUserinfoGot,
-            curUserIncome,
-            curUserExpense,
+            // curUserIncome,
+            // curUserExpense,
+            // curUserChartVal,
             getInfo,
             arrangeInfo,
             updateChart,
