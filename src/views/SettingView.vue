@@ -4,33 +4,7 @@
         <div id="layoutAuthentication" :class="[darkMode ? 'dark-mode' : '', fontSize == 'small' ? 'small-mode':'', fontSize == 'medium' ? 'medium-mode':'', fontSize == 'large' ? 'large-mode':'']">
             <div id="layoutAuthentication_content">
 
-
-
-
-
-                <main v-if="!isLoggedIn">
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-7">
-                                <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">App Setting</h3></div>
-                                    <div class="card-body">
-                                        <br/><br/><br/><br/>
-                                        <h1>로그인 정보가 없습니다.</h1>
-                                        <br/><br/><br/><br/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </main>
-
-
-
-
-
-
-                <main v-else>
+                <main>
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-7">
@@ -81,29 +55,26 @@
                                                 <div class="d-grid"><button type="submit" class="btn btn-primary btn-block">Update</button></div>
                                             </div>
 
-
-
                                             <br/><hr/><br/>
 
-
-                                            <!-- -----------앱 설정 부분----------- -->
-                                            <h3>앱 설정</h3>
-
-                                            <!-- 다크모드 스위치 -->
-                                            <div class="form-check form-switch">
-                                                <label class="form-check-label" for="darkMode">다크모드</label>
-                                                <input v-model="darkMode" class="form-check-input" type="checkbox" role="switch" id="darkMode">
-                                            </div>
-
-                                            <!-- 글자크기 설정 버튼 -->
-                                             <div class="mt-4 mb-0">
-                                                <label class="form-check-label" for="fontBtn">글자크기 설정</label><br/>
-                                                <button @click="fontSet($event)" value="small" class="btn btn-outline-primary btn-sm" id="fontBtn-sm">작게</button> &nbsp;
-                                                <button @click="fontSet($event)" value="medium" class="btn btn-outline-primary" id="fontBtn-md">중간</button> &nbsp;
-                                                <button @click="fontSet($event)" value="large" class="btn btn-outline-primary btn-lg" id="fontBtn-lg">크게</button>
-                                            </div>
-
                                         </form>
+
+                                        <!-- -----------앱 설정 부분----------- -->
+                                        <h3>앱 설정</h3>
+
+                                        <!-- 다크모드 스위치 -->
+                                        <div class="form-check form-switch">
+                                            <label class="form-check-label" for="darkMode">다크모드</label>
+                                            <input v-model="darkMode" class="form-check-input" type="checkbox" role="switch" id="darkMode">
+                                        </div>
+
+                                        <!-- 글자크기 설정 버튼 -->
+                                        <div class="mt-4 mb-0">
+                                            <label class="form-check-label" for="fontBtn">글자크기 설정</label><br/>
+                                            <button @click="fontSet($event)" value="small" class="btn btn-outline-primary btn-sm" id="fontBtn-sm">작게</button> &nbsp;
+                                            <button @click="fontSet($event)" value="medium" class="btn btn-outline-primary" id="fontBtn-md">중간</button> &nbsp;
+                                            <button @click="fontSet($event)" value="large" class="btn btn-outline-primary btn-lg" id="fontBtn-lg">크게</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -138,11 +109,10 @@ import axios from 'axios';
 
 export default {
     name: "Setting",
+    inject: ["isLoggedIn", "localId"],
 
     data(){
         return{
-            isLoggedIn: false,
-            localId: "",
 
             pw: "",
             pwChk: "",
@@ -158,26 +128,12 @@ export default {
     },
 
     mounted() {
-        this.chkLogin();  // mount시 로그인 여부 판별
 
         this.chkMode(); // mount시 darkMode 여부와 fontSize 판별
+        this.previewInfo(); // mount시 로그인된 id의 정보 불러오기
     },
 
     methods:{
-
-        // 로그인 여부 판별 -> 각각 다른 template 적용 (데이터에 대한 무분별한 접근 X)
-        chkLogin() {
-            const status = localStorage.getItem('loginID');
-
-            if(status !== null && status !== "" && status !== undefined){
-                this.isLoggedIn = true;
-                this.localId = status;
-                this.previewInfo();  // 로그인이 된 상태에서만 preview시킬 정보 불러오기
-            }
-            //console.log(status);
-            //console.log(this.isLoggedIn);
-            //console.log(this.localId);
-        },
 
         // darkMode 작동
         chkMode() {
@@ -197,19 +153,23 @@ export default {
 
 
         // 로그인된 정보를 미리 input에 띄워 정보 수정이 용이하도록 함
-        previewInfo(){  
+        previewInfo(){ 
             
-            axios.get("/api/" + this.localId)
-                .then(res => {
-                    this.user = res.data;
-                    console.log('previewInfo: ' + JSON.stringify(this.user));
+            // 로그인이 된 상태에서만 preview시킬 정보 불러오기
+            if( this.isLoggedIn === true ) {  
+                
+                axios.get("/api/" + this.localId)
+                    .then(res => {
+                        this.user = res.data;
+                        console.log('previewInfo: ' + JSON.stringify(this.user));
 
-                    this.pw = this.user.pw;
-                    this.name = this.user.name;
-                    this.email = this.user.email;
-                })
-                .catch(err=>alert(err))
+                        this.pw = this.user.pw;
+                        this.name = this.user.name;
+                        this.email = this.user.email;
+                    })
+                    .catch(err=>alert(err))
 
+            }
         },
         
         // 회원정보 수정
@@ -227,6 +187,8 @@ export default {
                     .then(res=>{
                         console.log('response:', res.data);
                         alert("회원정보가 성공적으로 수정되었습니다.");
+                        // Home으로 이동
+                        this.$router.push('/');
                     })
                     .catch(err=>alert(err))
                 
@@ -257,5 +219,7 @@ export default {
 
 
 <style scoped>
+    h1{
+        text-align: center;
+    }
 </style>
-

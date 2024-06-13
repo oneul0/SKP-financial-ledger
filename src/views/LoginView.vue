@@ -25,21 +25,15 @@
                                             </div>
 
 
-                                            <div class="form-check mb-3">
-                                                <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
-                                                <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
-                                            </div>
-
                                             <!-- Login 버튼 부분 -->
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <a class="small" href="password.html">Forgot Password?</a>
                                                 <button type="submit" class="btn btn-primary">Login</button>
                                             </div>
                                         </form>
                                     </div>
                                     
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="/signUp">Need an account? Sign up!</a></div>
+                                        <div class="small"><a href="/signUp">회원이 아니신가요? 가입하러 가기!</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -74,6 +68,7 @@ import axios from 'axios';
 
 export default {
     name: "Login",
+    inject: ["isLoggedIn", "localId"],
 
     data(){
         return{
@@ -87,7 +82,8 @@ export default {
     },
 
     mounted() {
-      this.chkMode(); // mount시 darkMode 여부와 fontSize 판별
+        this.chkMode(); // mount시 darkMode 여부와 fontSize 판별
+
     },
 
     methods:{
@@ -110,8 +106,6 @@ export default {
             // json데이터와 id, pw 입력 값을 받아 비교 -> 로그인 성공시 Home으로 routing
             axios.get("/api/", {})
                 .then(res=>{
-                    console.log(res.data);
-                    //console.log(res.data[0].id);
 
                     if(this.id === undefined || this.pw === undefined){
                         alert('id나 패스워드가 형식에 맞지 않습니다.');
@@ -119,7 +113,6 @@ export default {
                     }
                     else{
                         this.users = res.data;
-                        console.log(this.users);
 
                         // 회원가입이 되어 있는 회원정보를 검색
                         let index = -1;
@@ -135,14 +128,12 @@ export default {
                             return '';
                         }else{ // 회원정보를 찾았을 경우.
 
-                            //console.log(this.users[index].id);
                             alert(this.users[index].name + "님 로그인에 성공했습니다.");
 
                             localStorage.setItem("loginID", this.id);  // localStorage는 string만 저장 가능
 
                             // Home으로 이동
                             this.$router.push('/');
-                            //return member[index];
                             
                         }
                     }
