@@ -11,7 +11,10 @@
         <!-- 그래프 부분 -->
         <div class="row">
           <div class="col-xl-6">
-            <GraphsComp />
+            <DoughnutGraph />
+          </div>
+          <div class="col-xl-6">
+            <MixedGraph />
           </div>
         </div>
 
@@ -39,7 +42,8 @@
 <script>
 import ListComp from "../components/ListComp.vue";
 import CreateComp from "../components/CreateComp.vue";
-import GraphsComp from "../components/GraphsComp.vue";
+import DoughnutGraph from "../components/DoughnutGraph.vue";
+import MixedGraph from "../components/MixedGraph.vue";
 
 import axios from "axios";
 
@@ -47,7 +51,8 @@ export default {
   components: {
     ListComp,
     CreateComp,
-    GraphsComp,
+    DoughnutGraph,
+    MixedGraph,
   },
   data() {
     return {
