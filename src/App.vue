@@ -1,6 +1,10 @@
 <template>
+  <div id="app">
+    <router-view />
+  </div>
   <div>
-    <body :class="[darkMode ? 'dark-mode' : '', fontSize == 'small' ? 'small-mode':'', fontSize == 'medium' ? 'medium-mode':'', fontSize == 'large' ? 'large-mode':'']">
+
+    <body>
       <router-view></router-view>
     </body>
   </div>
@@ -10,9 +14,10 @@
   import { ref, provide } from 'vue';
   import Login from "./views/LoginView.vue";
 
-  export default{
-    name: "App",
-    components: { Login },
+
+export default {
+  name: "App",
+  components: { Login },
 
     setup() {
       const isLoggedIn = ref(false);
@@ -53,19 +58,17 @@
         const saveMode = localStorage.getItem('darkMode');
         const saveFontMode = localStorage.getItem('fontSize');
 
-        if(saveMode !== null && saveMode === "true") {  // localStorage는 string만 저장 가능       
-            this.darkMode = true;
-        }
+      if (saveMode !== null && saveMode === "true") {  // localStorage는 string만 저장 가능       
+        this.darkMode = true;
+      }
 
-        if(saveFontMode !== null) {
-                this.fontSize = saveFontMode;
-            }
+      if (saveFontMode !== null) {
+        this.fontSize = saveFontMode;
       }
     }
-
   }
+
+}
 </script>
 
-
-<style>
-</style>
+<style></style>
