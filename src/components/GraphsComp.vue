@@ -19,8 +19,7 @@
                     지출
                 </label>
                 <label>
-                    <input type="radio" name="chartType" value="netIncome" v-model="selectedChart"
-                        @change="updateChart">순수익
+                    <input type="radio" name="chartType" value="netIncome" v-model="selectedChart" @change="updateChart">순수익
                 </label>
             </div>
         </div>

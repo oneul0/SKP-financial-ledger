@@ -1,11 +1,10 @@
 <template>
-  <div id="app">
+  <!-- <div id="app">
     <router-view />
-  </div>
+  </div> -->
   <div>
-
     <body>
-      <router-view></router-view>
+      <router-view/>
     </body>
   </div>
 </template>
