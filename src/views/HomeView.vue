@@ -1,30 +1,20 @@
 <template>
 
-        <div class="home-view">
-            <!-- 상단 섹션 (현재는 비어 있음) -->
-            <div class="top-section"></div>
-            <!-- 하단 섹션 -->
-            <div class="bottom-section">
-              <!-- ListComp 컴포넌트를 사용하여 리스트를 표시 -->
-              <ListComp :list="entries" @edit-entry="editEntry" @delete-entry="deleteEntry" @update:list="updateEntries" />
-            </div>
-            <!-- 항목 추가를 위한 버튼 -->
-            <button class="add-button" @click="showModal">+</button>
-            <!-- CreateComp 컴포넌트를 사용하여 항목 생성 모달 -->
-            <CreateComp :isVisible="isModalVisible" :entry="editingEntry" @close="hideModal" @add-entry="addEntry" />
-        </div>
 
 </template>
 
 <script>
 import ListComp from "../components/ListComp.vue";
 import CreateComp from "../components/CreateComp.vue";
+import GraphsComp from "../components/GraphsComp.vue";
+
 import axios from "axios";
 
 export default {
   components: {
     ListComp,
     CreateComp,
+    GraphsComp,
   },
   data() {
     return {

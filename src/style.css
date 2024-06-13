@@ -102,6 +102,7 @@ body {
   background-color: var(--bs-body-bg);
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
 }
 
 hr {
@@ -342,6 +343,9 @@ label {
 
 button {
   border-radius: 0;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
 }
 
 button:focus:not(:focus-visible) {
@@ -450,8 +454,8 @@ legend + * {
 [type="email"],
 [type="number"] {
   direction: ltr;
-}
-*/
+} */
+
 ::-webkit-search-decoration {
   -webkit-appearance: none;
 }
@@ -11243,7 +11247,15 @@ body {
 }
 
 
-/* yoon */
+
+
+
+
+
+
+
+/* custom css 추가 */
+/* 다크모드, 폰트 사이즈 변경 */
 .app-dark-mode {
   background-color:rgb(49, 51, 53);
   color: white;
@@ -11264,4 +11276,174 @@ body {
 
 .large-mode{
   font-size: larger;
+}
+
+
+
+/* list 스타일 */
+/* EditComp Styles */
+.modal {
+  /* 모달 기본 스타일 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  /* 모달 내용 스타일 */
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+.close {
+  /* 취소 버튼 스타일 */
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+label {
+  /* 라벨 스타일 */
+  margin-bottom: 10px;
+}
+input,
+select {
+  /* 입력 및 선택 요소 스타일 */
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+.buttons {
+  /* 버튼 컨테이너 스타일 */
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+button {
+  /* 수정버튼 스타일 (EditComp 내) */
+  flex: 1;
+  padding: 10px 0;
+  margin: 5px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+button:nth-child(2) {
+  /* 삭제버튼 스타일 */
+  background-color: #6c757d;
+}
+
+/* ListComp Styles */
+.list-comp {
+  /* 리스트 컴포넌트 스타일 */
+  width: 100%;
+  height: calc(100% - 150px);
+}
+
+table {
+  /* 테이블 스타일 */
+  width: 100%;
+  border-collapse: collapse;
+}
+th,
+td {
+  /* 테이블 헤더와 데이터 셀 스타일 */
+  border: 1px solid #333; /* 테두리 색상 진하게 설정 */
+  padding: 8px;
+  text-align: left;
+}
+th {
+  /* 테이블 헤더 스타일 */
+  background-color: #f2f2f2;
+}
+tr.income {
+  /* 수입 행 스타일 */
+  background-color: #ffdddd;
+}
+tr.expense {
+  /* 지출 행 스타일 */
+  background-color: #ddddff;
+}
+.pagination {
+  /* 페이지네이션 컨트롤 스타일 */
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+.pagination button {
+  /* 페이지네이션 버튼 스타일 */
+  margin: 0 5px;
+  padding: 0.3em 0.6em;
+  width: auto; /* 버튼의 가로 길이를 자동으로 조정 */
+  min-width: 60px; /* 버튼의 최소 가로 길이 설정 */
+  max-width: 100px; /* 버튼의 최대 가로 길이 설정 */
+}
+.pagination span {
+  margin: 0 30px; /* 페이지 넘버와 버튼 사이의 간격을 10px로 설정 */
+}
+.controls {
+  /* 필터 컨트롤 스타일 */
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.filter-controls {
+  /* 필터 컨트롤 컨테이너 스타일 */
+  display: flex;
+  align-items: center;
+}
+.filter-controls select,
+.filter-controls input {
+  /* 필터 선택 및 입력 요소 스타일 */
+  margin-right: 10px;
+  width: auto; /* 요소 너비 자동 조절 */
+}
+
+/* CreateComp Styles */
+.add-button {
+  /* 추가 버튼 스타일 */
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+
+.add-button {
+  /* 홈 뷰 내 추가 버튼 스타일 */
+  position: fixed;
+  bottom: 4%;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  cursor: pointer;
+}
+.bottom-section {
+  /* 하단 섹션 스타일 */
+  flex: 1;
+  overflow: hidden;
+  width: 100%; /* 너비를 100%로 설정 */
 }

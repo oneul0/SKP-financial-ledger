@@ -8,7 +8,7 @@
           </div>
         </main>
       </div>
- 
+
     </body>
   </div>
 </template>
