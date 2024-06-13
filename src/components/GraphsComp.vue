@@ -1,31 +1,27 @@
 <template>
-    <!-- <div class="col-lg-6" style="width: 50rem; height: 50rem;"> -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h3 style="text-align: center;">{{ graphTitle }}</h3>
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 style="text-align: center;">{{ graphTitle }}</h3>
 
-            </div>
-            <div class="card-body">
-                <canvas id="myChart" width="50rem" height="50rem"></canvas>
-            </div>
-            <h3 class="card-footer small text-muted">{{ totalText }} : {{ totalAmount }}원</h3>
-            <div class="chart-type-selector">
-                <label>
-                    <input type="radio" name="chartType" value="income" v-model="selectedChart" @change="updateChart">
-                    수입
-                </label>
-                <label>
-                    <input type="radio" name="chartType" value="expense" v-model="selectedChart" @change="updateChart">
-                    지출
-                </label>
-                <label>
-                    <input type="radio" name="chartType" value="netIncome" v-model="selectedChart" @change="updateChart">순수익
-                </label>
-            </div>
         </div>
-
-
-    <!-- </div> -->
+        <div class="card-body">
+            <canvas id="myChart" style="height: 50vh; "></canvas>
+        </div>
+        <h3 class="card-footer small text-muted">{{ totalText }} : {{ totalAmount }}원</h3>
+        <div class="chart-type-selector">
+            <label>
+                <input type="radio" name="chartType" value="income" v-model="selectedChart" @change="updateChart">
+                수입
+            </label>
+            <label>
+                <input type="radio" name="chartType" value="expense" v-model="selectedChart" @change="updateChart">
+                지출
+            </label>
+            <label>
+                <input type="radio" name="chartType" value="netIncome" v-model="selectedChart" @change="updateChart">순수익
+            </label>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -220,7 +216,8 @@ export default {
                         labels: labelCategory.netIncomeCategory
                     },
                     options: {
-                        responsive: true,
+                        // responsive: false,
+                        maintainAspectRatio: false,
                         plugins: {
                             legend: {
                                 position: 'top',
@@ -275,7 +272,8 @@ export default {
                         ],
                     },
                     options: {
-                        responsive: true,
+                        // responsive: false,
+                        maintainAspectRatio: false,
                         plugins: {
                             legend: {
                                 position: 'top',

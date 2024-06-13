@@ -1,14 +1,27 @@
 <template>
   <div>
     <h1>Total Page</h1>
-    <!-- 총 거래내역을 보여주는 내용을 여기에 추가 -->
-    <div class="bottom-section">
-      <!-- ListComp 컴포넌트를 사용하여 리스트를 표시 -->
-      <ListComp :list="entries" @edit-entry="editEntry" @delete-entry="deleteEntry" @update:list="updateEntries" />
+    <div class="row">
+      <div class="col-xl-6">
+        <!-- 캘린더 부분 -->
+         <CalenderComp/>
+      </div>
+      <div class="col-xl-6">
+        <!-- 그래프 부분 -->
+         <GraphsComp></GraphsComp>
+      </div>
     </div>
-    <!-- 항목 추가를 위한 버튼 -->
+    <div class="card mb-4">
+      <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        DataTable Example
+      </div>
+      <div class="card-body">
+        <!-- 리스트 부분 -->
+        <ListComp :list="entries" @edit-entry="editEntry" @delete-entry="deleteEntry" @update:list="updateEntries" />
+      </div>
+    </div>
     <button class="add-button" @click="showModal">+</button>
-    <!-- CreateComp 컴포넌트를 사용하여 항목 생성 모달 -->
     <CreateComp :isVisible="isModalVisible" :entry="editingEntry" @close="hideModal" @add-entry="addEntry" />
   </div>
 </template>
@@ -17,6 +30,7 @@
 import ListComp from "../components/ListComp.vue";
 import CreateComp from "../components/CreateComp.vue";
 import GraphsComp from "../components/GraphsComp.vue";
+import CalenderComp from "../components/CalenderComp.vue";
 
 import axios from "axios";
 
@@ -25,6 +39,7 @@ export default {
     ListComp,
     CreateComp,
     GraphsComp,
+    CalenderComp,
   },
   data() {
     return {

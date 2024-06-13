@@ -1,22 +1,25 @@
 <template>
 
-  <div class="home-view">
+  <div>
     <main>
       <div class="container-fluid px-4">
-        <h1 class="mt-4">Dashboard</h1>
+        <h1 class="mt-4">홈</h1>
         <ol class="breadcrumb mb-4">
-          <li class="breadcrumb-item active">Dashboard</li>
+          <li class="breadcrumb-item active">Home</li>
         </ol>
 
+        <!-- 그래프 부분 -->
         <div class="row">
-          <GraphsComp />
+          <div class="col-xl-6">
+            <GraphsComp />
+          </div>
         </div>
 
-        <!-- 리스트 들어가는 부분 -->
+        <!-- 리스트 부분 -->
         <div class="card mb-4">
           <div class="card-header">
             <i class="fas fa-table me-1"></i>
-            DataTable Example
+            최근 거래 내역
           </div>
           <div class="card-body">
             <!-- ListComp 컴포넌트를 사용하여 리스트를 표시 -->
