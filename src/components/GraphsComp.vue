@@ -216,7 +216,8 @@ export default {
                         labels: labelCategory.netIncomeCategory
                     },
                     options: {
-                        responsive: false,
+                        // responsive: false,
+                        maintainAspectRatio: false,
                         plugins: {
                             legend: {
                                 position: 'top',
@@ -271,7 +272,8 @@ export default {
                         ],
                     },
                     options: {
-                        responsive: false,
+                        // responsive: false,
+                        maintainAspectRatio: false,
                         plugins: {
                             legend: {
                                 position: 'top',
