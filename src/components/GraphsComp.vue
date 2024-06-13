@@ -10,12 +10,10 @@
         <h3 class="card-footer small text-muted">{{ totalText }} : {{ totalAmount }}원</h3>
         <div class="chart-type-selector">
             <label>
-                <input type="radio" name="chartType" value="income" v-model="selectedChart" @change="updateChart">
-                수입
+                <input type="radio" name="chartType" value="income" v-model="selectedChart" @change="updateChart"> 수입
             </label>
             <label>
-                <input type="radio" name="chartType" value="expense" v-model="selectedChart" @change="updateChart">
-                지출
+                <input type="radio" name="chartType" value="expense" v-model="selectedChart" @change="updateChart"> 지출
             </label>
             <label>
                 <input type="radio" name="chartType" value="netIncome" v-model="selectedChart" @change="updateChart">순수익
@@ -73,12 +71,13 @@ export default {
                 //30일 전 날짜 구하기(지출/수입 카테고리)
                 const date = new Date();
                 date.setDate(date.getDate() - 30);
+                console.log(date);
                 const startDate = date.toISOString().split('T')[0];
 
-                //90일 전 날짜 구하기(총수익 카테고리)
-                const netDate = new Date();
-                netDate.setDate(date.getDate() - 90);
-                const startNetDate = netDate.toISOString().split('T')[0];
+                //현재 날짜로부터 90일 전 날짜 구하기(총수익 카테고리)
+                date.setDate(date.getDate() - 60);
+                console.log(date);
+                const startNetDate = date.toISOString().split('T')[0];
 
                 const netIncomeMap = new Map(); //최근 90일 이내 데이터로 필터링 위한 map
 
@@ -185,8 +184,8 @@ export default {
         // 차트 그리기
         const updateChart = () => {
             // expense, income, netIncome 내역 추출
-            const expenseData = currentUserInfo.value.netIncome.map(item => item.expense);
-            const incomeData = currentUserInfo.value.netIncome.map(item => item.income);
+            const expenseData = currentUserInfo.value.expense.map(item => item.amount);
+            const incomeData = currentUserInfo.value.income.map(item => item.amount);
             const netIncomeData = currentUserInfo.value.netIncome.map(item => item.netIncome);
             // console.log(expenseData);
 
