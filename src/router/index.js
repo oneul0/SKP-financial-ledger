@@ -12,7 +12,7 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
         { path: '/login', name:'login', component: login},
-        { path: '/home', name:'home', component: home},
+        { path: '/', name:'home', component: home},
         { path: '/signUp', name:'signUp', component: signUp},
         { path: '/setting', name:'setting', component: setting},
         { path: '/calender', name:'calender', component: CalenderComp},

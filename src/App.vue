@@ -1,17 +1,10 @@
 <template>
-  <div>
-    <body>
-      <div id="layoutSidenav_content">
-        <main>
-          <div class="container-fluid px-4">
-            <router-view></router-view>
-          </div>
-        </main>
-      </div>
-
-
-    </body>
-  </div>
+  <body>
+    <div>
+      <Header/>
+      <router-view></router-view>
+    </div>
+  </body>
 </template>
 
 <script>
