@@ -11,7 +11,7 @@
                 </li>
                 &nbsp;&nbsp;&nbsp;
                 <li class="nav-item">
-                    <router-link class="nav-link" to="/">조회</router-link>
+                    <router-link class="nav-link" to="/total">조회</router-link>
                 </li>
                 &nbsp;&nbsp;&nbsp;
                 <li class="nav-item dropdown">

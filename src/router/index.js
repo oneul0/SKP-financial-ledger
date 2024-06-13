@@ -3,7 +3,7 @@ import home from '../views/HomeView.vue';
 import login from '../views/LoginView.vue';
 import signUp from '../views/SignUpView.vue';
 import setting from '../views/SettingView.vue';
-import CalenderComp from '@/components/CalenderComp.vue'
+import CalendarComp from '@/components/CalendarComp.vue'
 import TotalView from "../views/TotalView.vue";
 import GraphsComp from "../components/GraphsComp.vue";
 
@@ -15,7 +15,7 @@ const router = createRouter({
         { path: '/', name:'home', component: home},
         { path: '/signUp', name:'signUp', component: signUp},
         { path: '/setting', name:'setting', component: setting},
-        { path: '/calender', name:'calender', component: CalenderComp},
+        { path: '/calendar', name:'calendar', component: CalendarComp},
         { path: "/total", component: TotalView },
         { path: "/graph", component: GraphsComp },
     ]

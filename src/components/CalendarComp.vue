@@ -31,8 +31,8 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 // import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 // import { INITIAL_EVENTS, createEventId } from "./event-utils";
-import DateModal from "./components/DateModal.vue";
-import EventModal from "./components/EventModal.vue";
+import DateModal from "@/components/DateModal.vue";
+import EventModal from "@/components/EventModal.vue";
 
 const translate = {
   etc: "기타",

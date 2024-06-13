@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-xl-6">
         <!-- 캘린더 부분 -->
-         <CalenderComp/>
+         <CalendarComp/>
       </div>
       <div class="col-xl-6">
         <!-- 그래프 부분 -->
@@ -30,7 +30,7 @@
 import ListComp from "../components/ListComp.vue";
 import CreateComp from "../components/CreateComp.vue";
 import GraphsComp from "../components/GraphsComp.vue";
-import CalenderComp from "../components/CalenderComp.vue";
+import CalendarComp from "../components/CalendarComp.vue";
 
 import axios from "axios";
 
@@ -39,7 +39,7 @@ export default {
     ListComp,
     CreateComp,
     GraphsComp,
-    CalenderComp,
+    CalendarComp,
   },
   data() {
     return {

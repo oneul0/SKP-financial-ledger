@@ -35,8 +35,8 @@ export default {
         //선택된 차트(라디오 버튼)
         const selectedChart = ref('expense'); // 기본 값으로 expense 설정
         // 현재 접속한 유저 id
-        const currentUser = ref('aaa'); //테스트용 임시 할당
-        // const currentUser = window.localStorage.getItem('id'); 
+        // const currentUser = ref('aaa'); //테스트용 임시 할당
+        const currentUser = window.localStorage.getItem('loginID'); 
         // 현재 접속한 유저 정보
         const currentUserInfo = ref({ income: [], expense: [], netIncome: [], }); //월별 값이 들어가야함
         const isUserinfoGot = ref(false); // 현재 접속한 유저의 정보를 가져왔는지 판단하는 flag 변수
@@ -63,7 +63,7 @@ export default {
         // id에 해당되는 유저 정보 가져오기 및 arrangeInfo() 호출
         const getInfo = async () => {
             try {
-                const res = await axios.get(`/api?id=${currentUser.value}`); //일치하는 id 필터링
+                const res = await axios.get(`/api?id=${currentUser}`); //일치하는 id 필터링
                 // console.log(res.data);
                 if (!res.data) { return console.log("일치하는 id 검색 실패"); }
                 isUserinfoGot.value = false;
