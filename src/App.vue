@@ -1,4 +1,6 @@
 <template>
+  <div id="app">
+    <router-view />
   <div>
     <body :class="[darkMode ? 'dark-mode' : '', fontSize == 'small' ? 'small-mode':'', fontSize == 'medium' ? 'medium-mode':'', fontSize == 'large' ? 'large-mode':'']">
       <router-view></router-view>
@@ -7,6 +9,18 @@
 </template>
 
 <script>
+export default {
+  name: "App",
+};
+</script>
+
+<style>
+body {
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
   import Login from "./views/LoginView.vue";
 
   export default{
