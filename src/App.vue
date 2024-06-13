@@ -1,63 +1,50 @@
 <template>
   <div id="app">
     <router-view />
+  </div>
   <div>
-    <body :class="[darkMode ? 'dark-mode' : '', fontSize == 'small' ? 'small-mode':'', fontSize == 'medium' ? 'medium-mode':'', fontSize == 'large' ? 'large-mode':'']">
+
+    <body>
       <router-view></router-view>
     </body>
   </div>
 </template>
 
 <script>
+import Login from "./views/LoginView.vue";
+
 export default {
   name: "App",
-};
-</script>
+  components: { Login },
 
-<style>
-body {
-  font-family: "Arial", sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-  import Login from "./views/LoginView.vue";
+  data() {
+    return {
+      darkMode: false,
+      fontSize: ""
+    }
+  },
 
-  export default{
-    name: "App",
-    components: { Login },
+  mounted() {
+    this.chkMode(); // mount시 darkMode 여부와 fontSize 판별
 
-    data(){
-      return {
-        darkMode: false,
-        fontSize: ""
+  },
+
+  methods: {
+    chkMode() {
+      const saveMode = localStorage.getItem('darkMode');
+      const saveFontMode = localStorage.getItem('fontSize');
+
+      if (saveMode !== null && saveMode === "true") {  // localStorage는 string만 저장 가능       
+        this.darkMode = true;
       }
-    },
 
-    mounted() {
-      this.chkMode(); // mount시 darkMode 여부와 fontSize 판별
-
-      
-    },
-
-    methods: {
-      chkMode() {
-        const saveMode = localStorage.getItem('darkMode');
-        const saveFontMode = localStorage.getItem('fontSize');
-
-        if(saveMode !== null && saveMode === "true") {  // localStorage는 string만 저장 가능       
-            this.darkMode = true;
-        }
-
-        if(saveFontMode !== null) {
-                this.fontSize = saveFontMode;
-            }
+      if (saveFontMode !== null) {
+        this.fontSize = saveFontMode;
       }
     }
-
   }
+
+}
 </script>
 
-
-<style>
-</style>
+<style></style>
