@@ -18,9 +18,9 @@
                                                 <input v-model="id" required class="form-control" id="inputID" type="text" placeholder="Enter your ID"/>
                                                 <label for="inputID">ID</label>
 
-                                                <button class="btn btn-primary" id="idChkBtn" @click="idCheck">중복확인</button>
+                                                <button class="btn btn-primary" type="button" id="idChkBtn" @click="idCheck">중복확인</button>
                                                 
-                                                <br/><br/> <p id="idChkMsg">{{ message }}</p>
+                                                <br/><br/> <p id="idChkMsg" v-html="idChkColor"></p>
                                             </div>
 
                                             <!-- pw 생성 및 재확인 input -->
@@ -60,7 +60,7 @@
                                     </div>
 
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="/login">Have an account? Go to login</a></div>
+                                        <div class="small"><a href="/login">이미 계정이 있으신가요? 로그인하러 가기!</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -102,8 +102,9 @@ export default {
             email: "",
 
             users: [],
-            index: 0,
+            index: -2,
             message: "",
+            idChkColor: "",
            
             darkMode: false,
             fontSize: ""
@@ -116,6 +117,7 @@ export default {
 
     methods:{
 
+        // 다크모드와 폰트사이즈 설정
         chkMode() {
             const saveMode = localStorage.getItem('darkMode');
             const saveFontMode = localStorage.getItem('fontSize');
@@ -155,14 +157,15 @@ export default {
                         }
                     });
 
-                    if(this.index < 0 && this.id !== ""){ // 중복된 ID가 없는 경우 -> ID 사용 가능, index= -1
+                    if(this.index === -1 && this.id !== ""){ // 중복된 ID가 없는 경우 -> ID 사용 가능, index= -1
                         
-                        this.message = "사용 가능한 ID 입니다."
+                        this.message = "사용 가능한 ID 입니다.";
+                        this.idChkColor = `<span style="color: green;">${this.message}</span>`;
                         
 
                     }else{ // 중복된 ID가 있는 경우 -> ID 사용 불가능
-
-                        this.message = "사용 불가능한 ID 입니다."
+                        this.message = "사용 불가능한 ID 입니다.";
+                        this.idChkColor = `<span style="color: red;">${this.message}</span>`;
                         
                     } 
                 })
@@ -172,13 +175,16 @@ export default {
         // 회원 생성
         account(){
 
-            if(this.index >= 0){
-                alert("중복된 ID는 사용하실 수 없습니다.")
+            if(this.index === -2){
+                alert("ID 중복확인 버튼을 눌러주세요.");
+            }
+            else if(this.index >= 0) {
+                alert("중복된 ID는 사용하실 수 없습니다.");
             }
             else if(this.pw !== this.pwChk){
                 alert("비밀번호가 일치하지 않습니다.");
             }
-            else if((this.index < 0) && (this.pw === this.pwChk)){
+            else if((this.index === -1) && (this.pw === this.pwChk)){
                 const newUser = { id:this.id, pw:this.pw, name:this.name, email:this.email };
                 console.log(newUser);
 
@@ -208,3 +214,4 @@ export default {
     margin-top: 10px;
 }
 </style>
+
