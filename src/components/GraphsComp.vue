@@ -187,7 +187,6 @@ export default {
             const expenseData = currentUserInfo.value.expense.map(item => item.amount);
             const incomeData = currentUserInfo.value.income.map(item => item.amount);
             const netIncomeData = currentUserInfo.value.netIncome.map(item => item.netIncome);
-            // console.log(expenseData);
 
             //차트 초기화
             if (myMixedChart) { myMixedChart.destroy(); }

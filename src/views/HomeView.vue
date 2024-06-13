@@ -1,5 +1,13 @@
 <template>
 
+  <div>
+    <main>
+      <div class="container-fluid px-4">
+        <h1 class="mt-4">홈</h1>
+        <ol class="breadcrumb mb-4">
+          <li class="breadcrumb-item active">Home</li>
+        </ol>
+
         <!-- 그래프 부분 -->
         <div class="row">
           <div class="col-xl-6">
@@ -29,7 +37,6 @@
       </div>
     </main>
   </div>
-
 </template>
 
 <script>
