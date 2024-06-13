@@ -152,19 +152,19 @@
     "id": 20
   },
   {
-    "date": "2024-06-28",
-    "type": "expense",
-    "category": "food",
-    "amount": 2500,
-    "note": "음료수",
-    "id": 22
-  },
-  {
     "date": "2024-06-30",
     "type": "expense",
     "category": "food",
     "amount": 6000,
     "note": "국수",
     "id": 24
+  },
+  {
+    "date": "2024-06-12",
+    "type": "expense",
+    "category": "shopping",
+    "amount": 700000,
+    "note": "아이패드",
+    "id": 21
   }
 ]
