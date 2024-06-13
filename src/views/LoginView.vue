@@ -58,7 +58,7 @@
                 </footer>
             </div>
         </div>
-    </body>
+        </body>
     </div>
 </template>
 

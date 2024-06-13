@@ -1,11 +1,14 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
   <div>
-
     <body>
-      <router-view></router-view>
+      <div id="layoutSidenav_content">
+        <main>
+          <div class="container-fluid px-4">
+            <router-view></router-view>
+          </div>
+        </main>
+      </div>
+ 
     </body>
   </div>
 </template>
@@ -13,11 +16,12 @@
 <script>
 import { ref, provide } from 'vue';
 import Login from "./views/LoginView.vue";
+import Header from './components/Header.vue';
 
 
 export default {
   name: "App",
-  components: { Login },
+  components: { Login, Header },
 
   setup() {
     const isLoggedIn = ref(false);

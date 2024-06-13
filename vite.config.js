@@ -28,7 +28,7 @@ export default defineConfig({
     },  
   }, optimizeDeps: {
     include: ['@fullcalendar/daygrid']
-  }
+    }
 
 });
  
