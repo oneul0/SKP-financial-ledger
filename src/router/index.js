@@ -1,21 +1,23 @@
+import home from '../views/HomeView.vue';
+import login from '../views/LoginView.vue';
+import signUp from '../views/SignUpView.vue';
+import setting from '../views/SettingView.vue';
+import CalenderComp from '@/components/CalenderComp.vue'
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
-import LoginView from "../views/LoginView.vue";
-import SettingView from "../views/SettingView.vue";
-import SignUpView from "../views/SignUpView.vue";
 import TotalView from "../views/TotalView.vue";
 
-const routes = [
-  { path: "/", component: HomeView },
-  { path: "/login", component: LoginView },
-  { path: "/settings", component: SettingView },
-  { path: "/signup", component: SignUpView },
-  { path: "/total", component: TotalView },
-];
 
 const router = createRouter({
-  history: createWebHistory(),
-  routes,
+    history: createWebHistory(),
+    routes: [
+        { path: '/login', name:'login', component: login},
+        { path: '/', name:'home', component: home},
+        { path: '/signUp', name:'signUp', component: signUp},
+        { path: '/setting', name:'setting', component: setting},
+        { path: '/calender', name:'calender', component: CalenderComp},
+        { path: "/total", component: TotalView },
+    ]
+
 });
 
 export default router;

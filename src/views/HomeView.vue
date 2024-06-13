@@ -1,4 +1,5 @@
 <template>
+
   <div class="home-view">
     <!-- 상단 섹션 (현재는 비어 있음) -->
     <div class="top-section"></div>
@@ -102,3 +103,4 @@ export default {
   },
 };
 </script>
+
