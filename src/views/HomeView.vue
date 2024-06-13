@@ -6,22 +6,12 @@
     <!-- 하단 섹션 -->
     <div class="bottom-section">
       <!-- ListComp 컴포넌트를 사용하여 리스트를 표시 -->
-      <ListComp
-        :list="entries"
-        @edit-entry="editEntry"
-        @delete-entry="deleteEntry"
-        @update:list="updateEntries"
-      />
+      <ListComp :list="entries" @edit-entry="editEntry" @delete-entry="deleteEntry" @update:list="updateEntries" />
     </div>
     <!-- 항목 추가를 위한 버튼 -->
     <button class="add-button" @click="showModal">+</button>
     <!-- CreateComp 컴포넌트를 사용하여 항목 생성 모달 -->
-    <CreateComp
-      :isVisible="isModalVisible"
-      :entry="editingEntry"
-      @close="hideModal"
-      @add-entry="addEntry"
-    />
+    <CreateComp :isVisible="isModalVisible" :entry="editingEntry" @close="hideModal" @add-entry="addEntry" />
   </div>
 </template>
 
@@ -79,7 +69,7 @@ export default {
     // 항목 저장 (서버에 POST 요청)
     async saveEntries() {
       try {
-        await axios.post("http://localhost:3000/api/entries", this.entries);
+        await axios.post("/api", this.entries);
       } catch (error) {
         console.error("Error saving entries:", error);
       }
@@ -87,7 +77,7 @@ export default {
     // 항목 불러오기 (서버에 GET 요청)
     async loadEntries() {
       try {
-        const response = await axios.get("http://localhost:3000/api/entries");
+        const response = await axios.get("/api");
         this.entries = response.data;
       } catch (error) {
         console.error("Error loading entries:", error);
@@ -103,4 +93,3 @@ export default {
   },
 };
 </script>
-
