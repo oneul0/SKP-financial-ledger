@@ -38,8 +38,8 @@
       </div>
     </div>
     <!-- 거래 내역을 표시하는 테이블 -->
-    <div class="table-container">
-      <table>
+    <div class="card-body">
+      <table id="datatablesSimple">
         <thead>
           <tr>
             <th>날짜</th>
