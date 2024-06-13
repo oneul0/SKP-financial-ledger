@@ -7,11 +7,22 @@
 </template>
 
 <script>
+  import { ref, provide } from 'vue';
   import Login from "./views/LoginView.vue";
 
   export default{
     name: "App",
     components: { Login },
+
+    setup() {
+      const isLoggedIn = ref(false);
+      const localId = ref("");
+
+      provide( 'isLoggedIn', isLoggedIn )
+      provide( 'localId', localId );
+
+      return { isLoggedIn, localId };
+    },
 
     data(){
       return {
@@ -21,12 +32,23 @@
     },
 
     mounted() {
-      this.chkMode(); // mount시 darkMode 여부와 fontSize 판별
+      this.chkLogin();  // mount시 로그인 여부 판별
 
-      
+      this.chkMode(); // mount시 darkMode 여부와 fontSize 판별
     },
 
     methods: {
+
+      // 로그인 여부 판별 -> 각각 다른 template 적용 (데이터에 대한 무분별한 접근 X)
+      chkLogin() {
+            const status = localStorage.getItem('loginID');
+
+            if(status !== null && status !== "" && status !== undefined){
+                this.isLoggedIn = true;
+                this.localId = status;
+            }
+      },
+
       chkMode() {
         const saveMode = localStorage.getItem('darkMode');
         const saveFontMode = localStorage.getItem('fontSize');
