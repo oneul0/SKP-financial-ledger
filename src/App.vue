@@ -9,11 +9,13 @@
         </main>
       </div>
 
+
     </body>
   </div>
 </template>
 
 <script>
+
 import { ref, provide } from 'vue';
 import Login from "./views/LoginView.vue";
 import Header from './components/Header.vue';
@@ -33,9 +35,11 @@ export default {
     return { isLoggedIn, localId };
   },
 
+
   data() {
     return {
       darkMode: false,
+
       fontSize: ""
     }
   },
@@ -43,10 +47,12 @@ export default {
   mounted() {
     this.chkLogin();  // mount시 로그인 여부 판별
 
+
     this.chkMode(); // mount시 darkMode 여부와 fontSize 판별
   },
 
   methods: {
+
 
     // 로그인 여부 판별 -> 각각 다른 template 적용 (데이터에 대한 무분별한 접근 X)
     chkLogin() {
@@ -74,5 +80,6 @@ export default {
 
 }
 </script>
+
 
 <style></style>

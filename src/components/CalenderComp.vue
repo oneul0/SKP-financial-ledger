@@ -17,6 +17,7 @@
     <EventModal
       :visible="isEventModalVisible"
       :event="selectedEvent"
+      @event-saved="fetchData"
       @close="isEventModalVisible = false"
     />
   </div>
@@ -44,6 +45,8 @@ const translate = {
   food: "식비",
   fOutcome: "금융",
 };
+
+const UserID = "aaa"; // 테스트용 아이디
 
 export default defineComponent({
   components: {
@@ -78,7 +81,7 @@ export default defineComponent({
   methods: {
     async fetchData() {
       try {
-        const response = await axios.get("api/aaa");
+        const response = await axios.get(`api/${UserID}`);
         const data = response.data;
         const incomeEvents = [];
         const expenseEvents = [];
@@ -98,7 +101,7 @@ export default defineComponent({
             // id: createEventId(),
             title: `-${expense.amount}`,
             date: expense.date,
-            amount: -1 * expense.amount,
+            amount: expense.amount,
             category: expense.category,
             memo: expense.memo,
             className: "expense-custom",
@@ -111,12 +114,14 @@ export default defineComponent({
         console.error("Error fetching data:", error);
       }
     },
+
     handleDateSelect(info) {
       console.log("Date clicked:", info.dateStr);
       this.selectedDate = info.dateStr;
       this.isDateModalVisible = true;
     },
     handleEventClick(info) {
+      console.log("Event clicked:", info.event);
       this.selectedEvent = info.event;
       this.isEventModalVisible = true;
     },
