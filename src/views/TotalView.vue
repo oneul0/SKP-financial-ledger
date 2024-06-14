@@ -20,17 +20,17 @@
         </div>
       </div>
     </div>
-    <div class="card mb-4">
+    <!-- <div class="card mb-4">
       <div class="card-header">
         <i class="fas fa-table me-1"></i>
         DataTable Example
       </div>
-      <div class="card-body">
-        <!-- 리스트 부분 -->
-        <!-- <ListComp :list="entries" @edit-entry="editEntry" @delete-entry="deleteEntry" @update:list="updateEntries" /> -->
-        <TotalList />
-      </div>
-    </div>
+      <div class="card-body"> -->
+    <!-- 리스트 부분 -->
+    <!-- <ListComp :list="entries" @edit-entry="editEntry" @delete-entry="deleteEntry" @update:list="updateEntries" /> -->
+    <TotalList />
+    <!-- </div> -->
+    <!-- </div> -->
     <button class="add-button" @click="showModal">+</button>
     <CreateComp
       :isVisible="isModalVisible"
