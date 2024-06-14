@@ -64,14 +64,14 @@
 
                                         <!-- 다크모드 스위치 -->
                                         <div class="form-check form-switch">
-                                            <label class="form-check-label" for="darkMode">다크모드</label>
-                                            <input v-model="darkMode" class="form-check-input" type="checkbox" role="switch" id="darkMode">
+                                            <label class="form-check-label" for="darkMode" style="width: 100px;">다크모드</label>
+                                            <input v-model="darkMode" class="form-check-input" type="checkbox" role="switch" id="darkMode" style="float: left">
                                         </div>
 
                                         <!-- 글자크기 설정 버튼 -->
                                         <div class="mt-4 mb-0">
-                                            <label class="form-check-label" for="fontBtn">글자크기 설정</label><br/>
-                                            <button @click="fontSet($event)" value="small" class="btn btn-outline-primary btn-sm" id="fontBtn-sm">작게</button> &nbsp;
+                                            <label class="form-check-label" for="fontBtn">글자크기 설정</label>
+                                            <button @click="fontSet($event)" value="small" class="btn btn-outline-primary btn-sm" id="fontBtn-sm" style="background-color: white">작게</button> &nbsp;
                                             <button @click="fontSet($event)" value="medium" class="btn btn-outline-primary" id="fontBtn-md">중간</button> &nbsp;
                                             <button @click="fontSet($event)" value="large" class="btn btn-outline-primary btn-lg" id="fontBtn-lg">크게</button>
                                         </div>
@@ -135,7 +135,7 @@ export default {
 
     methods:{
 
-        // darkMode 작동
+        // darkMode & fontSize 설정 작동
         chkMode() {
 
             const saveMode = localStorage.getItem('darkMode');

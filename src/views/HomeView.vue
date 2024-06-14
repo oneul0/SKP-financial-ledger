@@ -1,6 +1,6 @@
 <template>
 
-  <div>
+  <div :class="[darkMode ? 'app-dark-mode' : '', fontSize == 'small' ? 'small-mode':'', fontSize == 'medium' ? 'medium-mode':'', fontSize == 'large' ? 'large-mode':'']">
     <main>
       <div class="container-fluid px-4">
         <h1 class="mt-4">홈</h1>
@@ -59,9 +59,30 @@ export default {
       entries: [], // 거래 내역 리스트
       isModalVisible: false, // 모달 표시 여부
       editingEntry: null, // 수정 중인 항목
+
+      darkMode: false,
+      fontSize: ""
     };
   },
+  created() {
+    this.chkMode(); // mount시 darkMode 여부와 fontSize 판별
+    console.log(this.darkMode);
+    console.log(this.fontSize);
+  },
+
   methods: {
+    // darkMode & fontSize 설정 작동
+    chkMode() {
+            const saveMode = localStorage.getItem('darkMode');
+            const saveFontMode = localStorage.getItem('fontSize');
+            if(saveMode !== null && saveMode === "true") {  // localStorage는 string만 저장 가능       
+                this.darkMode = true;
+            }
+            if(saveFontMode !== null) {
+                this.fontSize = saveFontMode;
+            }
+    },
+
     // 모달 표시
     showModal() {
       this.isModalVisible = true;

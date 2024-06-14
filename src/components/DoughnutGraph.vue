@@ -9,14 +9,15 @@
         </div>
         <h3 class="card-footer small text-muted">{{ totalText }} : {{ totalAmount }}원</h3>
         <div class="chart-type-selector">
-            <label>
-                <input type="radio" name="chartType" value="income" v-model="selectedChart" @change="updateChart">
+            <label><input type="radio" name="chartType" value="income" v-model="selectedChart" @change="updateChart" style="width: 20px;">
                 수입
             </label>
+            <span>
             <label>
-                <input type="radio" name="chartType" value="expense" v-model="selectedChart" @change="updateChart">
+                <input type="radio" name="chartType" value="expense" v-model="selectedChart" @change="updateChart" style="width: 20px;">
                 지출
             </label>
+            </span>
         </div>
     </div>
 </template>
