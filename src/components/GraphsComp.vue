@@ -144,7 +144,7 @@ export default {
             if (!isUserinfoGot.value) { return console.log('데이터 없음'); }
             // 카테고리별 수입 금액 총합
             const incomeMap = new Map([
-                ['etc', 0],
+                ['ietc', 0],
                 ['allowance', 0],
                 ['salary', 0],
                 ['fIncome', 0],
@@ -152,7 +152,7 @@ export default {
 
             // 카테고리별 지출 금액 총합
             const expenseMap = new Map([
-                ['etc', 0],
+                ['eetc', 0],
                 ['shopping', 0],
                 ['medical', 0],
                 ['charge', 0],

@@ -1,0 +1,26 @@
+{
+  "user": [
+    {
+      "id": "",
+      "pw": "",
+      "name": "",
+      "email": "",
+      "income": [
+        {
+          "date": "YYYY-MM-DD",
+          "category": "",
+          "amount": 0,
+          "memo": ""
+        }
+      ],
+      "expense": [
+        {
+          "date": "YYYY-MM-DD",
+          "category": "",
+          "amount": 0,
+          "memo": ""
+        }
+      ]
+    }
+  ]
+}
