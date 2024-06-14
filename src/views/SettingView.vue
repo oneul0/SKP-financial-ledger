@@ -210,7 +210,7 @@ export default {
                         console.log('response:', res.data);
                         alert("회원정보가 성공적으로 수정되었습니다.");
                         // Home으로 이동
-                        this.$router.push('/home');
+                        this.$router.push('/');
                     })
                     .catch(err => alert(err))
 

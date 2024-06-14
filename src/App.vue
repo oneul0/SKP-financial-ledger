@@ -1,12 +1,8 @@
 <template>
   <body>
-    <div v-if="isLoggedIn">
+    <div>
       <Header/>
       <router-view></router-view>
-    </div>
-    <div v-else>
-      <Login/>
-      <!-- <router-view></router-view> -->
     </div>
   </body>
 </template>
