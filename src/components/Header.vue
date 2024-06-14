@@ -7,11 +7,11 @@
         <div :class="navClass">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <router-link class="nav-link" to="/">홈</router-link>
+                    <a class="nav-link" href="/home">홈</a>
                 </li>
                 &nbsp;&nbsp;&nbsp;
                 <li class="nav-item">
-                    <router-link class="nav-link" to="/total">조회</router-link>
+                    <a class="nav-link" href="/total">조회</a>
                 </li>
                 &nbsp;&nbsp;&nbsp;
                 <li class="nav-item dropdown">
@@ -36,8 +36,10 @@ export default {
     methods: {
         logout() {
             localStorage.removeItem("loginID");
-            // Home으로 이동
+            // login으로 이동
             this.$router.push('/');
+            location.href = location.href;
+
         }
     }
 }

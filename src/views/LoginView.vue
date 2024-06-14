@@ -87,7 +87,9 @@ export default {
     },
 
     methods:{
-
+        refresh(){
+            location.href = location.href;
+        },
         chkMode() {
             const saveMode = localStorage.getItem('darkMode');
             const saveFontMode = localStorage.getItem('fontSize');
@@ -133,8 +135,8 @@ export default {
                             localStorage.setItem("loginID", this.id);  // localStorage는 string만 저장 가능
 
                             // Home으로 이동
-                            this.$router.push('/');
-                            
+                            this.$router.push('/home');
+                            // location.href = location.href;
                         }
                     }
                 })

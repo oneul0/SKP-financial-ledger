@@ -60,7 +60,7 @@
                                     </div>
 
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="/login">이미 계정이 있으신가요? 로그인하러 가기!</a></div>
+                                        <div class="small"><a href="/">이미 계정이 있으신가요? 로그인하러 가기!</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -191,7 +191,7 @@ export default {
                 axios.post("/api/", newUser)
                     .then(res=>{
                         alert(newUser.name + "님 가입을 환영합니다."); 
-                        // Home으로 이동
+                        // login으로 이동
                         this.$router.push('/');     
                     })
                     .catch(err=>alert(err));

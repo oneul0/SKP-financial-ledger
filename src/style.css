@@ -11308,7 +11308,7 @@ body {
 
 label {
   /* 라벨 스타일 */
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 }
 input,
 select {
