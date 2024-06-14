@@ -153,12 +153,12 @@ export default {
 
             if (selectedChart.value === 'income') {
                 graphTitle.value = '이번 달의 총 수입';
-                totalText.value = '최근 1달 지출 총액';
+                totalText.value = '최근 1달 수입 총액';
                 totalAmount.value = incomeData.reduce((ac, curVal) => ac + curVal, 0);
             }
             else {
                 graphTitle.value = '이번 달의 총 지출';
-                totalText.value = '최근 1달 수입 총액';
+                totalText.value = '최근 1달 지출 총액';
                 totalAmount.value = expenseData.reduce((ac, curVal) => ac + curVal, 0);
             }
 
@@ -224,3 +224,11 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.chart-type-selector{
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-around
+}
+</style>

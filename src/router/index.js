@@ -22,4 +22,14 @@ const router = createRouter({
 
 });
 
+router.beforeEach((to, from, next) => {
+    const loginId = localStorage.getItem('loginID');
+
+    if (!loginId && to.name !== 'login' && to.name !== 'signUp') {
+        next({ name: 'login' });
+    } else {
+        next(); 
+    }
+});
+
 export default router;
