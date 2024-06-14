@@ -211,6 +211,7 @@ export default {
 
         await axios.put("/api/aaa", userData);
         this.$emit("event-saved");
+        location.href = location.href;
         this.closeModal();
       } catch (error) {
         console.error("데이터 전송 실패:", error);

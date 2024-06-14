@@ -63,6 +63,7 @@ import axios from "axios";
 
 export default {
   name: "List",
+  inject: ["isLoggedIn", "localId"],
   components: {
     ListItem,
     EventModal,
@@ -139,7 +140,7 @@ export default {
   methods: {
     async fetchListData() {
       try {
-        const response = await axios.get("/api/aaa");
+        const response = await axios.get(`/api/${this.localId}`);
         this.incomes = response.data.income.map((item) => ({
           ...item,
           type: "income",
@@ -172,7 +173,7 @@ export default {
         type: event.type,
       };
       try {
-        const response = await axios.get("/api/aaa");
+        const response = await axios.get(`/api/${this.localId}`);
         const userData = response.data;
 
         if (this.targetDay.type === "income") {
@@ -196,9 +197,9 @@ export default {
               )
           );
         }
-        await axios.put("api/aaa", userData);
+        await axios.put(`/api/${this.localId}`, userData);
         await this.fetchListData();
-        //location.href = location.href;
+        location.href = location.href;
       } catch (error) {
         console.error("데이터 전송 실패:", error);
       }
