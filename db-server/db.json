@@ -23,6 +23,12 @@
           "category": "salary",
           "amount": 14000,
           "memo": "아싸 월급"
+        },
+        {
+          "date": "2024-06-11",
+          "category": "etc",
+          "amount": 12000,
+          "memo": "123123"
         }
       ],
       "expense": [

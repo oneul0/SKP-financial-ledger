@@ -1,50 +1,39 @@
 <template>
-  <div>
-
-    <body class="bg-primary">
-      <div
-        :class="[darkMode ? 'dark-mode' : '', fontSize == 'small' ? 'small-mode' : '', fontSize == 'medium' ? 'medium-mode' : '', fontSize == 'large' ? 'large-mode' : '']">
-        <main>
-          <div class="container-fluid px-4">
-            <h1 class="mt-4">홈</h1>
-            <ol class="breadcrumb mb-4">
-              <li class="breadcrumb-item active">Home</li>
-            </ol>
-
-            <!-- 그래프 부분 -->
-            <div class="row">
-              <div class="col-xl-6">
-                <DoughnutGraph />
-              </div>
-              <div class="col-xl-6">
-                <MixedGraph />
-              </div>
-            </div>
-
-            <!-- 리스트 부분 -->
-            <div class="card mb-4">
-              <div class="card-header">
-                <i class="fas fa-table me-1"></i>
-                최근 거래 내역
-              </div>
-              <div class="card-body">
-                <!-- ListComp 컴포넌트를 사용하여 리스트를 표시 -->
-                <ListComp :list="entries" @edit-entry="editEntry" @delete-entry="deleteEntry"
-                  @update:list="updateEntries" />
-                <!-- 항목 추가를 위한 버튼 -->
-                <button class="add-button" @click="showModal">+</button>
-                <!-- CreateComp 컴포넌트를 사용하여 항목 생성 모달 -->
-                <CreateComp :isVisible="isModalVisible" :entry="editingEntry" @close="hideModal"
-                  @add-entry="addEntry" />
-              </div>
-            </div>
+  <div :class="[darkMode ? 'app-dark-mode' : '', fontSize == 'small' ? 'small-mode':'', fontSize == 'medium' ? 'medium-mode':'', fontSize == 'large' ? 'large-mode':'']">
+    <main>
+      <div class="container-fluid px-4">
+        <h1 class="mt-4">홈</h1>
+        <ol class="breadcrumb mb-4">
+          <li class="breadcrumb-item active">Home</li>
+        </ol>
+        <!-- 그래프 부분 -->
+        <div class="row">
+          <div class="col-xl-6">
+            <DoughnutGraph />
           </div>
-        </main>
+          <div class="col-xl-6">
+            <MixedGraph />
+          </div>
+        </div>
+        <!-- 리스트 부분 -->
+        <div class="card mb-4">
+          <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            최근 거래 내역
+          </div>
+          <div class="card-body">
+            <!-- ListComp 컴포넌트를 사용하여 리스트를 표시 -->
+            <ListComp :list="entries" @edit-entry="editEntry" @delete-entry="deleteEntry"
+              @update:list="updateEntries" />
+            <!-- 항목 추가를 위한 버튼 -->
+            <button class="add-button" @click="showModal">+</button>
+            <!-- CreateComp 컴포넌트를 사용하여 항목 생성 모달 -->
+            <CreateComp :isVisible="isModalVisible" :entry="editingEntry" @close="hideModal" @add-entry="addEntry" />
+          </div>
+        </div>
       </div>
-    </body>
+    </main>
   </div>
-
-
 </template>
 
 <script>
@@ -138,11 +127,12 @@ export default {
       }
     }
   },
-
   async mounted() {
     await this.loadEntries(); // 컴포넌트가 마운트될 때 항목 불러오기
-    this.chkMode(); // mount시 darkMode 여부와 fontSize 판별
   },
+  created() {
+    this.chkMode(); // mount시 darkMode 여부와 fontSize 판별
+  }
 };
 </script>
 

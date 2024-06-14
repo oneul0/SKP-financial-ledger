@@ -11250,8 +11250,10 @@ body {
 /* custom css 추가 */
 
 /* 다크모드, 폰트 사이즈 변경 */
-.app-dark-mode {
+.app-dark-mode{
   background-color:rgb(49, 51, 53);
+}
+.app-dark-mode h1{
   color: white;
 }
 
