@@ -8,7 +8,7 @@
       "income": [
         {
           "date": "2024-05-01",
-          "category": "etc",
+          "category": "ietc",
           "amount": 9000,
           "memo": "친구한테 돈을 빌렸다"
         },
@@ -26,7 +26,7 @@
         },
         {
           "date": "2024-06-11",
-          "category": "etc",
+          "category": "ietc",
           "amount": 12000,
           "memo": "123123"
         }
@@ -34,7 +34,7 @@
       "expense": [
         {
           "date": "2024-05-05",
-          "category": "etc",
+          "category": "eetc",
           "amount": 9000,
           "memo": "친구의 돈을 갚았다"
         },
@@ -60,7 +60,7 @@
       "income": [
         {
           "date": "2024-05-01",
-          "category": "etc",
+          "category": "ietc",
           "amount": 9000,
           "memo": "친구한테 돈을 빌렸다"
         },
@@ -80,7 +80,7 @@
       "expense": [
         {
           "date": "2024-05-05",
-          "category": "etc",
+          "category": "eetc",
           "amount": 9000,
           "memo": "친구의 돈을 갚았다"
         },
@@ -121,6 +121,18 @@
       "pw": "q",
       "name": "q",
       "email": "qwe@qwe.com"
+    },
+    {
+      "id": "ccc",
+      "pw": "ddd",
+      "name": "hh",
+      "email": "aa@ddd"
+    },
+    {
+      "id": "rrr",
+      "pw": "ttt",
+      "name": "ee",
+      "email": "ee@dd"
     }
   ]
 }

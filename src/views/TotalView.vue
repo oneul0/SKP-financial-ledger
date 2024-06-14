@@ -1,6 +1,12 @@
 <template>
   <div
-    :class="[darkMode ? 'app-dark-mode' : '', fontSize == 'small' ? 'small-mode' : '', fontSize == 'medium' ? 'medium-mode' : '', fontSize == 'large' ? 'large-mode' : '']">
+    :class="[
+      darkMode ? 'app-dark-mode' : '',
+      fontSize == 'small' ? 'small-mode' : '',
+      fontSize == 'medium' ? 'medium-mode' : '',
+      fontSize == 'large' ? 'large-mode' : '',
+    ]"
+  >
     <h1>Total Page</h1>
     <div class="card mb-4">
       <div class="row">
@@ -21,11 +27,17 @@
       </div>
       <div class="card-body">
         <!-- 리스트 부분 -->
-        <ListComp :list="entries" @edit-entry="editEntry" @delete-entry="deleteEntry" @update:list="updateEntries" />
+        <!-- <ListComp :list="entries" @edit-entry="editEntry" @delete-entry="deleteEntry" @update:list="updateEntries" /> -->
+        <TotalList />
       </div>
     </div>
     <button class="add-button" @click="showModal">+</button>
-    <CreateComp :isVisible="isModalVisible" :entry="editingEntry" @close="hideModal" @add-entry="addEntry" />
+    <CreateComp
+      :isVisible="isModalVisible"
+      :entry="editingEntry"
+      @close="hideModal"
+      @add-entry="addEntry"
+    />
   </div>
 </template>
 
@@ -34,7 +46,7 @@ import ListComp from "../components/ListComp.vue";
 import CreateComp from "../components/CreateComp.vue";
 import GraphsComp from "../components/GraphsComp.vue";
 import CalendarComp from "../components/CalendarComp.vue";
-
+import TotalList from "../components/TotalList.vue";
 import axios from "axios";
 
 export default {
@@ -43,6 +55,7 @@ export default {
     CreateComp,
     GraphsComp,
     CalendarComp,
+    TotalList,
   },
   data() {
     return {
@@ -51,7 +64,7 @@ export default {
       editingEntry: null, // 수정 중인 항목
 
       darkMode: false,
-      fontSize: ""
+      fontSize: "",
     };
   },
   methods: {
@@ -111,21 +124,22 @@ export default {
     },
     // darkMode & fontSize 설정 작동
     chkMode() {
-      const saveMode = localStorage.getItem('darkMode');
-      const saveFontMode = localStorage.getItem('fontSize');
-      if (saveMode !== null && saveMode === "true") {  // localStorage는 string만 저장 가능       
+      const saveMode = localStorage.getItem("darkMode");
+      const saveFontMode = localStorage.getItem("fontSize");
+      if (saveMode !== null && saveMode === "true") {
+        // localStorage는 string만 저장 가능
         this.darkMode = true;
       }
       if (saveFontMode !== null) {
         this.fontSize = saveFontMode;
       }
-    }
+    },
   },
   async mounted() {
     await this.loadEntries(); // 컴포넌트가 마운트될 때 항목 불러오기
   },
   created() {
     this.chkMode(); // mount시 darkMode 여부와 fontSize 판별
-  }
+  },
 };
 </script>

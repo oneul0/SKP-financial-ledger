@@ -2,7 +2,6 @@
   <div v-if="visible" class="modal">
     <div class="modal-content">
       <span class="close" @click="closeModal">&times;</span>
-      <!-- 모달 닫기 버튼 -->
       <form @submit.prevent="submitForm">
         <div>
           <label for="date">날짜</label>
@@ -47,7 +46,7 @@
           <label for="memo">메모</label>
           <input type="text" id="memo" v-model="formData.memo" required />
         </div>
-        <button type="submit">제출</button>
+        <button class="submitButton" type="submit">제출</button>
       </form>
     </div>
   </div>
@@ -79,13 +78,13 @@ export default {
       formattedAmount: "",
       categories: {
         income: {
-          etc: "기타",
+          ietc: "기타소득",
           allowance: "용돈",
           salary: "근로소득",
           fIncome: "금융소득",
         },
         expense: {
-          etc: "기타",
+          eetc: "기타지출",
           shopping: "쇼핑",
           medical: "의료/건강",
           charge: "교통/통신",
@@ -162,7 +161,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .modal {
   display: flex;
   justify-content: center;
@@ -221,5 +220,8 @@ button {
 }
 button:hover {
   background-color: #45a049;
+}
+.submitButton {
+  background-color: #356eff;
 }
 </style>

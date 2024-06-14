@@ -1,5 +1,12 @@
 <template>
-  <div :class="[darkMode ? 'app-dark-mode' : '', fontSize == 'small' ? 'small-mode':'', fontSize == 'medium' ? 'medium-mode':'', fontSize == 'large' ? 'large-mode':'']">
+  <div
+    :class="[
+      darkMode ? 'app-dark-mode' : '',
+      fontSize == 'small' ? 'small-mode' : '',
+      fontSize == 'medium' ? 'medium-mode' : '',
+      fontSize == 'large' ? 'large-mode' : '',
+    ]"
+  >
     <main>
       <div class="container-fluid px-4">
         <h1 class="mt-4">홈</h1>
@@ -15,22 +22,23 @@
             <MixedGraph />
           </div>
         </div>
+        <HomeList />
         <!-- 리스트 부분 -->
-        <div class="card mb-4">
-          <div class="card-header">
-            <i class="fas fa-table me-1"></i>
-            최근 거래 내역
-          </div>
-          <div class="card-body">
-            <!-- ListComp 컴포넌트를 사용하여 리스트를 표시 -->
-            <ListComp :list="entries" @edit-entry="editEntry" @delete-entry="deleteEntry"
-              @update:list="updateEntries" />
-            <!-- 항목 추가를 위한 버튼 -->
-            <button class="add-button" @click="showModal">+</button>
-            <!-- CreateComp 컴포넌트를 사용하여 항목 생성 모달 -->
-            <CreateComp :isVisible="isModalVisible" :entry="editingEntry" @close="hideModal" @add-entry="addEntry" />
-          </div>
-        </div>
+        <!-- <div class="card mb-4"> -->
+        <!-- <div class="card-header"> -->
+        <!-- <i class="fas fa-table me-1"></i> -->
+        <!-- 최근 거래 내역 -->
+        <!-- </div> -->
+        <!-- <div class="card-body"> -->
+        <!-- ListComp 컴포넌트를 사용하여 리스트를 표시 -->
+        <!-- <ListComp :list="entries" @edit-entry="editEntry" @delete-entry="deleteEntry" -->
+        <!-- @update:list="updateEntries" /> -->
+        <!-- 항목 추가를 위한 버튼 -->
+        <!-- <button class="add-button" @click="showModal">+</button> -->
+        <!-- CreateComp 컴포넌트를 사용하여 항목 생성 모달 -->
+        <!-- <CreateComp :isVisible="isModalVisible" :entry="editingEntry" @close="hideModal" @add-entry="addEntry" /> -->
+        <!-- </div> -->
+        <!-- </div> -->
       </div>
     </main>
   </div>
@@ -41,7 +49,7 @@ import ListComp from "../components/ListComp.vue";
 import CreateComp from "../components/CreateComp.vue";
 import DoughnutGraph from "../components/DoughnutGraph.vue";
 import MixedGraph from "../components/MixedGraph.vue";
-
+import HomeList from "../components/HomeList.vue";
 import axios from "axios";
 
 export default {
@@ -50,6 +58,7 @@ export default {
     CreateComp,
     DoughnutGraph,
     MixedGraph,
+    HomeList,
   },
   data() {
     return {
@@ -57,7 +66,7 @@ export default {
       isModalVisible: false, // 모달 표시 여부
       editingEntry: null, // 수정 중인 항목
       darkMode: false,
-      fontSize: ""
+      fontSize: "",
     };
   },
   methods: {
@@ -117,22 +126,23 @@ export default {
     },
     // darkMode & fontSize 설정 작동
     chkMode() {
-      const saveMode = localStorage.getItem('darkMode');
-      const saveFontMode = localStorage.getItem('fontSize');
-      if (saveMode !== null && saveMode === "true") {  // localStorage는 string만 저장 가능       
+      const saveMode = localStorage.getItem("darkMode");
+      const saveFontMode = localStorage.getItem("fontSize");
+      if (saveMode !== null && saveMode === "true") {
+        // localStorage는 string만 저장 가능
         this.darkMode = true;
       }
       if (saveFontMode !== null) {
         this.fontSize = saveFontMode;
       }
-    }
+    },
   },
   async mounted() {
     await this.loadEntries(); // 컴포넌트가 마운트될 때 항목 불러오기
   },
   created() {
     this.chkMode(); // mount시 darkMode 여부와 fontSize 판별
-  }
+  },
 };
 </script>
 
