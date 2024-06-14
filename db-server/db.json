@@ -19,9 +19,27 @@
           "memo": "아싸 용돈"
         },
         {
-          "date": "2024-06-10",
+          "date": "2024-06-01",
           "category": "salary",
-          "amount": 14000,
+          "amount": 120000,
+          "memo": "아싸 월급"
+        },
+        {
+          "date": "2024-06-13",
+          "category": "ietc",
+          "amount": 3000,
+          "memo": "길에서 주웠다"
+        },
+        {
+          "date": "2024-05-01",
+          "category": "salary",
+          "amount": 100000,
+          "memo": "아싸 월급"
+        },
+        {
+          "date": "2024-04-01",
+          "category": "salary",
+          "amount": 80000,
           "memo": "아싸 월급"
         }
       ],
@@ -42,91 +60,249 @@
           "date": "2024-06-10",
           "category": "food",
           "amount": 12000,
-          "memo": "밥 줘"
+          "memo": "혼밥했다"
+        },
+        {
+          "date": "2024-05-25",
+          "category": "eetc",
+          "amount": 3000,
+          "memo": "길에서 돈을 잃어버렸다"
+        },
+        {
+          "date": "2024-04-29",
+          "category": "shopping",
+          "amount": 50000,
+          "memo": "사고싶은 옷을 샀다"
+        },
+        {
+          "date": "2024-06-08",
+          "category": "food",
+          "amount": 22000,
+          "memo": "치킨먹었다"
         }
       ]
     },
     {
-      "id": "qqq",
-      "pw": "www",
+      "id": "ccc",
+      "pw": "ddd",
       "name": "human2",
       "email": "human2@gmail.com",
       "income": [
         {
-          "date": "2024-05-01",
-          "category": "ietc",
-          "amount": 9000,
-          "memo": "친구한테 돈을 빌렸다"
+          "date": "2024-04-05",
+          "category": "salary",
+          "amount": 50000,
+          "memo": "아싸 월급"
         },
         {
           "date": "2024-06-09",
-          "category": "allowance",
+          "category": "fIncome",
           "amount": 10000,
-          "memo": "아싸 용돈"
+          "memo": "배당금이 들어왔다"
         },
         {
-          "date": "2024-06-10",
+          "date": "2024-05-05",
           "category": "salary",
-          "amount": 14000,
+          "amount": 100000,
           "memo": "아싸 월급"
+        },
+        {
+          "date": "2024-06-13",
+          "category": "ietc",
+          "amount": 30000,
+          "memo": "친구가 돈을 갚았다"
+        },
+        {
+          "date": "2024-06-05",
+          "category": "salary",
+          "amount": 150000,
+          "memo": "아싸 월급"
+        },
+        {
+          "date": "2024-04-01",
+          "category": "allowance",
+          "amount": 50000,
+          "memo": "아싸 용돈"
         }
       ],
       "expense": [
         {
           "date": "2024-05-05",
-          "category": "eetc",
-          "amount": 9000,
-          "memo": "친구의 돈을 갚았다"
+          "category": "food",
+          "amount": 50000,
+          "memo": "한우를 먹었다"
         },
         {
-          "date": "2024-06-09",
+          "date": "2024-06-03",
           "category": "shopping",
-          "amount": 20000,
+          "amount": 100000,
+          "memo": "신발을 샀다"
+        },
+        {
+          "date": "2024-04-20",
+          "category": "charge",
+          "amount": 12000,
+          "memo": "택시비"
+        },
+        {
+          "date": "2024-05-25",
+          "category": "medical",
+          "amount": 3000,
+          "memo": "약국에서 약을 샀다"
+        },
+        {
+          "date": "2024-05-19",
+          "category": "fOutcome",
+          "amount": 50000,
+          "memo": "적금을 넣었다"
+        },
+        {
+          "date": "2024-06-08",
+          "category": "food",
+          "amount": 22000,
+          "memo": "술을 마셨다"
+        }
+      ]
+    },
+    {
+      "id": "eee",
+      "pw": "fff",
+      "name": "human3",
+      "email": "human3@gmail.com",
+      "income": [
+        {
+          "date": "2024-05-15",
+          "category": "allowance",
+          "amount": 10000,
+          "memo": "용돈을 받았다"
+        },
+        {
+          "date": "2024-06-15",
+          "category": "allowance",
+          "amount": 100000,
+          "memo": "아싸 용돈"
+        },
+        {
+          "date": "2024-06-03",
+          "category": "salary",
+          "amount": 120000,
+          "memo": "아싸 알바비가 들어왔다"
+        },
+        {
+          "date": "2024-05-23",
+          "category": "ietc",
+          "amount": 30000,
+          "memo": "당근해서 돈벌었다"
+        },
+        {
+          "date": "2024-05-03",
+          "category": "salary",
+          "amount": 100000,
+          "memo": "알바비 들어왔다!"
+        }
+      ],
+      "expense": [
+        {
+          "date": "2024-05-01",
+          "category": "charge",
+          "amount": 32000,
+          "memo": "휴대폰 요금이 나갔다"
+        },
+        {
+          "date": "2024-06-08",
+          "category": "shopping",
+          "amount": 80000,
           "memo": "옷 샀다"
         },
         {
           "date": "2024-06-10",
           "category": "food",
-          "amount": 13000,
-          "memo": "밥 줘"
+          "amount": 34000,
+          "memo": "데이트할때 저녁!"
+        },
+        {
+          "date": "2024-06-11",
+          "category": "eetc",
+          "amount": 5000,
+          "memo": "아 돈을 잃어버렸다"
+        },
+        {
+          "date": "2024-04-29",
+          "category": "food",
+          "amount": 5000,
+          "memo": "커피 한잔 사먹었다"
+        },
+        {
+          "date": "2024-05-28",
+          "category": "food",
+          "amount": 22000,
+          "memo": "치킨먹었다"
         }
       ]
     },
     {
-      "id": "aaaa",
-      "pw": "aaa",
-      "name": "aaa",
-      "email": "qwe@qwe.com"
-    },
-    {
-      "id": "aa",
-      "pw": "aa",
-      "name": "aa",
-      "email": "qwe@qwe.com"
-    },
-    {
-      "id": "qw",
-      "pw": "qw",
-      "name": "qw",
-      "email": "human1@gmail.com"
-    },
-    {
-      "id": "q",
-      "pw": "q",
-      "name": "q",
-      "email": "qwe@qwe.com"
-    },
-    {
-      "id": "ccc",
-      "pw": "ddd",
-      "name": "hh",
-      "email": "aa@ddd"
-    },
-    {
-      "id": "rrr",
-      "pw": "ttt",
-      "name": "ee",
-      "email": "ee@dd"
+      "id": "ggg",
+      "pw": "hhh",
+      "name": "human4",
+      "email": "human4@gmail.com",
+      "income": [
+        {
+          "date": "2024-05-15",
+          "category": "salary",
+          "amount": 300000,
+          "memo": "월급이다"
+        },
+        {
+          "date": "2024-06-15",
+          "category": "salary",
+          "amount": 300000,
+          "memo": "아싸 월급 들어왔다"
+        },
+        {
+          "date": "2024-06-03",
+          "category": "fOutcome",
+          "amount": 1000000,
+          "memo": "적금 만기!"
+        }
+      ],
+      "expense": [
+        {
+          "date": "2024-05-02",
+          "category": "eetc",
+          "amount": 50000,
+          "memo": "친구에게 돈을 빌려줬다"
+        },
+        {
+          "date": "2024-06-09",
+          "category": "shopping",
+          "amount": 20000,
+          "memo": "책을 샀다"
+        },
+        {
+          "date": "2024-06-10",
+          "category": "food",
+          "amount": 3000,
+          "memo": "빵 사먹었다"
+        },
+        {
+          "date": "2024-05-25",
+          "category": "charge",
+          "amount": 50000,
+          "memo": "교통비 빠져나가는 날"
+        },
+        {
+          "date": "2024-04-04",
+          "category": "medical",
+          "amount": 50000,
+          "memo": "병원을 다녀옴"
+        },
+        {
+          "date": "2024-05-20",
+          "category": "food",
+          "amount": 35000,
+          "memo": "삼겹살 먹었다"
+        }
+      ]
     }
   ]
 }
