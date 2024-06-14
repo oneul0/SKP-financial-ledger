@@ -1,8 +1,6 @@
 <template>
-  <div
-    class="form-check-container d-flex align-items-center justify-content-between mb-3"
-  >
-    <div class="d-flex align-items-center">
+  <div class="form-check-container d-flex align-items-center mb-3">
+    <div class="d-flex align-items-center flex-grow-1">
       <div class="form-check form-switch me-3">
         <label class="form-check-label" for="flexSwitchCheckChecked">
           <input
@@ -18,7 +16,7 @@
       </div>
       <div class="filter-options d-flex">
         <button
-          class="btn btn-outline-secondary me-2"
+          class="btn btn-outline-secondary"
           :class="{ active: filterOption === 'all' }"
           @click="setFilterOption('all')"
         >
@@ -33,7 +31,11 @@
         </button>
       </div>
     </div>
-    <button class="addButton" @click="$emit('add-click')">
+    <button
+      class="addButton"
+      @click="$emit('add-click')"
+      style="display: inline-block; margin-left: auto"
+    >
       새로운 거래내역 추가
     </button>
   </div>
@@ -66,5 +68,8 @@ export default {
 <style scoped>
 .addButton {
   background-color: #356eff;
+  display: inline-block;
+  white-space: nowrap;
+  margin-left: auto;
 }
 </style>
