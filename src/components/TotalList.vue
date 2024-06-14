@@ -198,6 +198,7 @@ export default {
         }
         await axios.put("api/aaa", userData);
         await this.fetchListData();
+        //location.href = location.href;
       } catch (error) {
         console.error("데이터 전송 실패:", error);
       }

@@ -7,7 +7,7 @@
         <div class="card-body">
             <canvas id="myChart" style="height: 50vh; "></canvas>
         </div>
-        <h3 class="card-footer small text-muted">{{ totalText }} : {{ totalAmount }}원</h3>
+        <h5 class="card-footer text-muted">{{ totalText }} : {{ totalAmount }}원</h5>
         <div class="chart-type-selector">
             <label>
                 <input type="radio" name="chartType" value="income" v-model="selectedChart" @change="updateChart"> 수입

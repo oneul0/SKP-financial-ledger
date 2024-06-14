@@ -24,7 +24,19 @@
             <MixedGraph />
           </div>
         </div>
-        <HomeList />
+
+
+        <div class="card mb-4">
+          <div class="card-header">
+            <h3 style="text-align: center;">최근 거래 내역</h3>
+          </div>
+
+          <div class="card-body">
+            <HomeList />
+          </div>
+        </div>
+        
+        
         <!-- 리스트 부분 -->
         <!-- <div class="card mb-4"> -->
         <!-- <div class="card-header"> -->

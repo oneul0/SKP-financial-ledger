@@ -14,7 +14,7 @@
                                             <h3 class="text-center font-weight-light my-4">Login</h3>
                                         </div>
                                         <div class="card-body">
-                                            <form @submit.prevent="login">
+                                            <form @submit.prevent="login">  <!-- form이 자동으로 submit으로 넘어가는 것 방지 -->
 
                                                 <!-- ID 입력 부분 -->
                                                 <div class="form-floating mb-3">
@@ -40,6 +40,7 @@
                                         </div>
 
                                         <div class="card-footer text-center py-3">
+                                            <!-- 회원이 아니라면 바로 회원가입 페이지로 이동 -->
                                             <div class="small"><a href="/signUp">회원이 아니신가요? 가입하러 가기!</a></div>
                                         </div>
                                     </div>
@@ -98,8 +99,8 @@ export default {
             location.href = location.href;
         },
         chkMode() {
-            const saveMode = localStorage.getItem('darkMode');
-            const saveFontMode = localStorage.getItem('fontSize');
+            const saveMode = localStorage.getItem('darkMode');  // localStroge에서 darkMode 기본 설정 가져오기 
+            const saveFontMode = localStorage.getItem('fontSize');  // localStroge에서 fontSize 기본 설정 가져오기 
 
             if (saveMode !== null && saveMode === "true") {  // localStorage는 string만 저장 가능       
                 this.darkMode = true;
@@ -116,6 +117,7 @@ export default {
             axios.get("/api/", {})
                 .then(res => {
 
+                    // 입력한 패스워드가 일치하는지 확인
                     if (this.id === undefined || this.pw === undefined) {
                         alert('id나 패스워드가 형식에 맞지 않습니다.');
                         return;
@@ -142,8 +144,6 @@ export default {
                             localStorage.setItem("loginID", this.id);  // localStorage는 string만 저장 가능
 
                             // Home으로 이동
-                            // this.$router.push('/');
-                            // location.href = location.href;
                             this.$router.push('/').then(() => {
                                 location.href = location.href;
                             }).catch((error) => {

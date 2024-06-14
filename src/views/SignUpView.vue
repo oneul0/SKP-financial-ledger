@@ -83,6 +83,8 @@
                         </div>
                     </main>
                 </div>
+
+                <!-- Footer 부분 -->
                 <div id="layoutAuthentication_footer">
                     <footer class="py-4 bg-light mt-auto">
                         <div class="container-fluid px-4">
@@ -134,8 +136,8 @@ export default {
 
         // 다크모드와 폰트사이즈 설정
         chkMode() {
-            const saveMode = localStorage.getItem('darkMode');
-            const saveFontMode = localStorage.getItem('fontSize');
+            const saveMode = localStorage.getItem('darkMode');  // localStroge에서 darkMode 기본 설정 가져오기
+            const saveFontMode = localStorage.getItem('fontSize'); // localStroge에서 fontSize 기본 설정 가져오기 
 
             if (saveMode !== null && saveMode === "true") {  // localStorage는 string만 저장 가능       
                 this.darkMode = true;
@@ -151,7 +153,6 @@ export default {
 
             axios.get("/api/", {})
                 .then(res => {
-                    console.log(this.id);
 
                     // ID가 형식에 맞지 않을 경우
                     if (this.id === undefined) {
@@ -160,7 +161,7 @@ export default {
                     }
                     else {
                         this.users = res.data;
-                        console.log(this.users);
+
                     }
 
                     // 이미 가입되어 있는 ID인지 검색
@@ -172,13 +173,14 @@ export default {
                         }
                     });
 
-                    if (this.index === -1 && this.id !== "") { // 중복된 ID가 없는 경우 -> ID 사용 가능, index= -1
+                    // 중복된 ID가 없는 경우 -> ID 사용 가능, index= -1
+                    if (this.index === -1 && this.id !== "") { 
 
                         this.message = "사용 가능한 ID 입니다.";
                         this.idChkColor = `<span style="color: green;">${this.message}</span>`;
 
-
-                    } else { // 중복된 ID가 있는 경우 -> ID 사용 불가능
+                    // 중복된 ID가 있는 경우 -> ID 사용 불가능
+                    } else { 
                         this.message = "사용 불가능한 ID 입니다.";
                         this.idChkColor = `<span style="color: red;">${this.message}</span>`;
 
@@ -190,18 +192,20 @@ export default {
         // 회원 생성
         account() {
 
+            // ID 중복확인 버튼을 누르지 않았을 경우
             if (this.index === -2) {
                 alert("ID 중복확인 버튼을 눌러주세요.");
             }
+            // ID가 중복된 경우
             else if (this.index >= 0) {
                 alert("중복된 ID는 사용하실 수 없습니다.");
             }
+            // 비밀번호가 일치하지 않을 경우
             else if (this.pw !== this.pwChk) {
                 alert("비밀번호가 일치하지 않습니다.");
             }
             else if ((this.index === -1) && (this.pw === this.pwChk)) {
                 const newUser = { id: this.id, pw: this.pw, name: this.name, email: this.email };
-                console.log(newUser);
 
                 axios.post("/api/", newUser)
                     .then(res => {

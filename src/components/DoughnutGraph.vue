@@ -7,7 +7,7 @@
         <div class="card-body">
             <canvas id="myDoughnutChart" style="height: 50vh; "></canvas>
         </div>
-        <h3 class="card-footer small text-muted">{{ totalText }} : {{ totalAmount }}원</h3>
+        <h5 class="card-footer text-muted">{{ totalText }} : {{ totalAmount }}원</h5>
         <div class="chart-type-selector">
             <label><input type="radio" name="chartType" value="income" v-model="selectedChart" @change="updateChart" style="width: 20px;">
                 수입
@@ -20,6 +20,7 @@
             </span>
         </div>
     </div>
+    <!--
     <div class="card-body">
       <canvas id="myDoughnutChart" style="height: 50vh"></canvas>
     </div>
@@ -47,7 +48,7 @@
         />
         지출
       </label>
-    </div>
+    </div>-->
 </template>
 
 <script>

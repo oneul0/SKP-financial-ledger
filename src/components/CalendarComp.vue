@@ -47,7 +47,7 @@ const translate = {
   fOutcome: "금융",
 };
 
-const UserID = "aaa"; // 테스트용 아이디
+//const UserID = "aaa"; // 테스트용 아이디
 
 export default defineComponent({
   components: {
@@ -55,6 +55,7 @@ export default defineComponent({
     DateModal,
     EventModal,
   },
+  inject: ["isLoggedIn", "localId"],
   data() {
     return {
       isDateModalVisible: false,
@@ -88,7 +89,7 @@ export default defineComponent({
   methods: {
     async fetchData() {
       try {
-        const response = await axios.get(`api/${UserID}`);
+        const response = await axios.get(`api/${this.localId}`);
         const data = response.data;
         const incomeEvents = [];
         const expenseEvents = [];

@@ -75,10 +75,9 @@
                                                 &nbsp;
                                                 <div class="form-check form-switch">
                                                     <input v-model="darkMode" class="form-check-input" type="checkbox"
-                                                        role="switch" id="darkMode">
+                                                        role="switch" id="darkMode" style="width:40px;">
                                                 </div>
                                             </div>
-
 
                                             <!-- 글자크기 설정 버튼 -->
                                             <div class="mt-4 mb-0">
@@ -152,8 +151,8 @@ export default {
         // darkMode & fontSize 설정 작동
         chkMode() {
 
-            const saveMode = localStorage.getItem('darkMode');
-            const saveFontMode = localStorage.getItem('fontSize');
+            const saveMode = localStorage.getItem('darkMode');  // localStroge에서 darkMode 기본 설정 가져오기
+            const saveFontMode = localStorage.getItem('fontSize');  // localStroge에서 fontSize 기본 설정 가져오기 
 
             if (saveMode !== null && saveMode === "true") {  // localStorage는 string만 저장 가능       
                 this.darkMode = true;
@@ -175,14 +174,12 @@ export default {
                 axios.get("/api/" + this.localId)
                     .then(res => {
                         this.user = res.data;
-                        console.log('previewInfo: ' + JSON.stringify(this.user));
 
                         this.pw = this.user.pw;
                         this.name = this.user.name;
                         this.email = this.user.email;
                     })
                     .catch(err => alert(err))
-
             }
         },
 
@@ -195,11 +192,10 @@ export default {
             }
             else if (this.pw === this.pwChk) {
                 const setUser = { id: this.localId, pw: this.pw, name: this.name, email: this.email };
-                console.log(setUser);
 
+                // 새로운 회원 정보 데이터로 수정
                 axios.patch("/api/" + this.localId, setUser)
                     .then(res => {
-                        console.log('response:', res.data);
                         alert("회원정보가 성공적으로 수정되었습니다.");
                         // Home으로 이동
                         this.$router.push('/');
@@ -214,16 +210,17 @@ export default {
         fontSet(event) {
             // 버튼의 value를 가져옴
             this.fontSize = event.target.value;
-            console.log(this.fontSize);
         }
 
     },
 
     watch: {
-        darkMode(changeMode) {  // darkMode변경
+        // darkMode 변경 감지
+        darkMode(changeMode) { 
             localStorage.setItem('darkMode', changeMode);
         },
 
+        // fontSize 변경 감지
         fontSize() {
             localStorage.setItem('fontSize', this.fontSize);
         }

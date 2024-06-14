@@ -7,37 +7,61 @@
       fontSize == 'large' ? 'large-mode' : '',
     ]"
   >
-    <h1>Total Page</h1>
-    <div class="card mb-4">
-      <div class="row">
-        <div class="col-xl-6">
-          <!-- 캘린더 부분 -->
-          <CalendarComp />
-        </div>
-        <div class="col-xl-6">
-          <!-- 그래프 부분 -->
-          <GraphsComp></GraphsComp>
+    <main>
+      <div class="container-fluid px-4">
+        <h1 class="mt-4">조회</h1>
+        <ol class="breadcrumb mb-4">
+          <li class="breadcrumb-item active">Total Page</li>
+        </ol>
+
+          <div class="card mb-4">
+        <div class="row">
+          <div class="col-xl-6">
+            <!-- 캘린더 부분 -->
+            <CalendarComp />
+          </div>
+          <div class="col-xl-6">
+            <!-- 그래프 부분 -->
+            <GraphsComp></GraphsComp>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- <div class="card mb-4">
-      <div class="card-header">
-        <i class="fas fa-table me-1"></i>
-        DataTable Example
+      <!-- <div class="card mb-4">
+        <div class="card-header">
+          <i class="fas fa-table me-1"></i>
+          DataTable Example
+        </div>
+        <div class="card-body"> -->
+      <!-- 리스트 부분 -->
+      <!-- <ListComp :list="entries" @edit-entry="editEntry" @delete-entry="deleteEntry" @update:list="updateEntries" /> -->
+      
+      <div class="card mb-4">
+            <div class="card-header">
+              <h3 style="text-align: center;">나의 거래 내역</h3>
+            </div>
+
+            <div class="card-body">
+              <TotalList />
+            </div>
       </div>
-      <div class="card-body"> -->
-    <!-- 리스트 부분 -->
-    <!-- <ListComp :list="entries" @edit-entry="editEntry" @delete-entry="deleteEntry" @update:list="updateEntries" /> -->
-    <TotalList />
+      </div>
+    </main>
+
+    
+    
+    
+    
     <!-- </div> -->
     <!-- </div> -->
+     <!--
     <button class="add-button" @click="showModal">+</button>
+    
     <CreateComp
       :isVisible="isModalVisible"
       :entry="editingEntry"
       @close="hideModal"
       @add-entry="addEntry"
-    />
+    />-->
   </div>
 </template>
 
