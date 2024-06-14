@@ -198,6 +198,7 @@ export default {
       this.isModalVisible = false;
     },
     formatDate(date) {
+      console.log(date);
       // 날짜 형식 변환
       return new Date(date).toISOString().split("T")[0];
     },

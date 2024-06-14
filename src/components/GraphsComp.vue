@@ -144,7 +144,7 @@ export default {
             if (!isUserinfoGot.value) { return console.log('데이터 없음'); }
             // 카테고리별 수입 금액 총합
             const incomeMap = new Map([
-                ['etc', 0],
+                ['ietc', 0],
                 ['allowance', 0],
                 ['salary', 0],
                 ['fIncome', 0],
@@ -152,7 +152,7 @@ export default {
 
             // 카테고리별 지출 금액 총합
             const expenseMap = new Map([
-                ['etc', 0],
+                ['eetc', 0],
                 ['shopping', 0],
                 ['medical', 0],
                 ['charge', 0],
@@ -231,12 +231,12 @@ export default {
 
                 if (selectedChart.value === 'income') {
                     graphTitle.value = '이번 달의 총 수입';
-                    totalText.value = '최근 1달 지출 총액';
+                    totalText.value = '최근 1달 수입 총액';
                     totalAmount.value = incomeData.reduce((ac, curVal) => ac + curVal, 0);
                 }
                 else {
                     graphTitle.value = '이번 달의 총 지출';
-                    totalText.value = '최근 1달 수입 총액';
+                    totalText.value = '최근 1달 지출 총액';
                     totalAmount.value = expenseData.reduce((ac, curVal) => ac + curVal, 0);
                 }
 
@@ -303,3 +303,10 @@ export default {
     },
 };
 </script>
+<style scoped>
+.chart-type-selector{
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-around
+}
+</style>

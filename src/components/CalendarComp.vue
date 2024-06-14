@@ -35,7 +35,8 @@ import DateModal from "@/components/DateModal.vue";
 import EventModal from "@/components/EventModal.vue";
 
 const translate = {
-  etc: "기타",
+  ietc: "기타소득",
+  eetc: "기타지출",
   allowance: "용돈",
   salary: "근로소득",
   fIncome: "금융소득",
@@ -59,7 +60,13 @@ export default defineComponent({
       isDateModalVisible: false,
       isEventModalVisible: false,
       selectedDate: "",
-      selectedEvent: {},
+      selectedEvent: {
+        date: "",
+        category: "",
+        amount: 0,
+        memo: "",
+        type: "",
+      },
       calendarOptions: {
         plugins: [dayGridPlugin, interactionPlugin],
         headerToolbar: {
@@ -122,7 +129,18 @@ export default defineComponent({
     },
     handleEventClick(info) {
       console.log("Event clicked:", info.event);
-      this.selectedEvent = info.event;
+      this.selectedEvent = {
+        date: info.event.start,
+        category: info.event.extendedProps?.category,
+        amount: info.event.extendedProps?.amount,
+        memo: info.event.extendedProps?.memo,
+        type:
+          info.event.classNames &&
+          info.event.classNames.includes("income-custom")
+            ? "income"
+            : "expense",
+      };
+
       this.isEventModalVisible = true;
     },
     handleEvents(events) {

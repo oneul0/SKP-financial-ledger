@@ -56,7 +56,7 @@
             required
           />
         </div>
-        <button type="submit">제출</button>
+        <button class="submitButton" type="submit">제출</button>
       </form>
     </div>
   </div>
@@ -84,26 +84,22 @@ export default {
     return {
       formData: {
         // event 전체가 거래내역에 대한 데이터임.
-        date: this.event.start,
+        date: this.event.date,
         category: "",
         amount: 0,
-        type:
-          this.event.classNames &&
-          this.event.classNames.includes("income-custom")
-            ? "income"
-            : "expense",
+        type: "",
         memo: "",
       },
       formattedAmount: this.amount,
       categories: {
         income: {
-          etc: "기타",
+          ietc: "기타소득",
           allowance: "용돈",
           salary: "근로소득",
           fIncome: "금융소득",
         },
         expense: {
-          etc: "기타",
+          eetc: "기타지출",
           shopping: "쇼핑",
           medical: "의료/건강",
           charge: "교통/통신",
@@ -115,7 +111,7 @@ export default {
   },
   computed: {
     formattedEventDate() {
-      const eventDate = new Date(this.event.start);
+      const eventDate = new Date(this.event.date);
       const year = eventDate.getFullYear();
       const month = String(eventDate.getMonth() + 1).padStart(2, "0");
       const day = String(eventDate.getDate()).padStart(2, "0");
@@ -146,15 +142,11 @@ export default {
     },
     resetForm() {
       this.formData = {
-        date: this.event.start,
-        category: this.event.extendedProps?.category,
-        amount: this.event.extendedProps?.amount,
-        type:
-          this.event.classNames &&
-          this.event.classNames.includes("income-custom")
-            ? "income"
-            : "expense",
-        memo: this.event.extendedProps?.memo,
+        date: this.event.date,
+        category: this.event.category,
+        amount: this.event.amount,
+        type: this.event.type,
+        memo: this.event.memo,
       };
       this.formattedAmount = this.formatAmountPlaceholder(this.formData.amount);
     },
@@ -187,9 +179,9 @@ export default {
             (item) =>
               !(
                 item.date === formattedDate &&
-                item.category === this.event.extendedProps?.category &&
-                item.amount === Number(this.event.extendedProps?.amount) &&
-                item.memo === this.event.extendedProps?.memo
+                item.category === this.event.category &&
+                item.amount === Number(this.event.amount) &&
+                item.memo === this.event.memo
               )
           );
         } else {
@@ -197,9 +189,9 @@ export default {
             (item) =>
               !(
                 item.date === formattedDate &&
-                item.category === this.event.extendedProps?.category &&
-                item.amount === Number(this.event.extendedProps?.amount) &&
-                item.memo === this.event.extendedProps?.memo
+                item.category === this.event.category &&
+                item.amount === Number(this.event.amount) &&
+                item.memo === this.event.memo
               )
           );
         }
@@ -287,5 +279,8 @@ button {
 }
 button:hover {
   background-color: #45a049;
+}
+.submitButton {
+  background-color: #356eff;
 }
 </style>

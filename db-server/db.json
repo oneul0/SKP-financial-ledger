@@ -8,7 +8,7 @@
       "income": [
         {
           "date": "2024-05-01",
-          "category": "etc",
+          "category": "ietc",
           "amount": 9000,
           "memo": "친구한테 돈을 빌렸다"
         },
@@ -23,12 +23,18 @@
           "category": "salary",
           "amount": 14000,
           "memo": "아싸 월급"
+        },
+        {
+          "date": "2024-06-11",
+          "category": "ietc",
+          "amount": 12000,
+          "memo": "123123"
         }
       ],
       "expense": [
         {
           "date": "2024-05-05",
-          "category": "etc",
+          "category": "eetc",
           "amount": 9000,
           "memo": "친구의 돈을 갚았다"
         },
@@ -54,7 +60,7 @@
       "income": [
         {
           "date": "2024-05-01",
-          "category": "etc",
+          "category": "ietc",
           "amount": 9000,
           "memo": "친구한테 돈을 빌렸다"
         },
@@ -74,7 +80,7 @@
       "expense": [
         {
           "date": "2024-05-05",
-          "category": "etc",
+          "category": "eetc",
           "amount": 9000,
           "memo": "친구의 돈을 갚았다"
         },
@@ -93,10 +99,40 @@
       ]
     },
     {
+      "id": "aaaa",
+      "pw": "aaa",
+      "name": "aaa",
+      "email": "qwe@qwe.com"
+    },
+    {
+      "id": "aa",
+      "pw": "aa",
+      "name": "aa",
+      "email": "qwe@qwe.com"
+    },
+    {
+      "id": "qw",
+      "pw": "qw",
+      "name": "qw",
+      "email": "human1@gmail.com"
+    },
+    {
+      "id": "q",
+      "pw": "q",
+      "name": "q",
+      "email": "qwe@qwe.com"
+    },
+    {
       "id": "ccc",
       "pw": "ddd",
-      "name": "홍길동",
-      "email": "gdHong@naver.com"
+      "name": "hh",
+      "email": "aa@ddd"
+    },
+    {
+      "id": "rrr",
+      "pw": "ttt",
+      "name": "ee",
+      "email": "ee@dd"
     }
   ]
 }
