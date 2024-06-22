@@ -1,32 +1,25 @@
 <template>
-    <!-- <div class="col-lg-6" style="width: 50rem; height: 50rem;"> -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h3 style="text-align: center;">{{ graphTitle }}</h3>
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 style="text-align: center;">{{ graphTitle }}</h3>
 
-            </div>
-            <div class="card-body">
-                <canvas id="myChart" width="50rem" height="50rem"></canvas>
-            </div>
-            <h3 class="card-footer small text-muted">{{ totalText }} : {{ totalAmount }}원</h3>
-            <div class="chart-type-selector">
-                <label>
-                    <input type="radio" name="chartType" value="income" v-model="selectedChart" @change="updateChart">
-                    수입
-                </label>
-                <label>
-                    <input type="radio" name="chartType" value="expense" v-model="selectedChart" @change="updateChart">
-                    지출
-                </label>
-                <label>
-                    <input type="radio" name="chartType" value="netIncome" v-model="selectedChart"
-                        @change="updateChart">순수익
-                </label>
-            </div>
         </div>
-
-
-    <!-- </div> -->
+        <div class="card-body">
+            <canvas id="myChart" style="height: 50vh; "></canvas>
+        </div>
+        <h5 class="card-footer text-muted">{{ totalText }} : {{ totalAmount }}원</h5>
+        <div class="chart-type-selector">
+            <label>
+                <input type="radio" name="chartType" value="income" v-model="selectedChart" @change="updateChart"> 수입
+            </label>
+            <label>
+                <input type="radio" name="chartType" value="expense" v-model="selectedChart" @change="updateChart"> 지출
+            </label>
+            <label>
+                <input type="radio" name="chartType" value="netIncome" v-model="selectedChart" @change="updateChart">순수익
+            </label>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -42,8 +35,8 @@ export default {
         //선택된 차트(라디오 버튼)
         const selectedChart = ref('expense'); // 기본 값으로 expense 설정
         // 현재 접속한 유저 id
-        const currentUser = ref('aaa'); //테스트용 임시 할당
-        // const currentUser = window.localStorage.getItem('id'); 
+        // const currentUser = ref('aaa'); //테스트용 임시 할당
+        const currentUser = window.localStorage.getItem('loginID'); 
         // 현재 접속한 유저 정보
         const currentUserInfo = ref({ income: [], expense: [], netIncome: [], }); //월별 값이 들어가야함
         const isUserinfoGot = ref(false); // 현재 접속한 유저의 정보를 가져왔는지 판단하는 flag 변수
@@ -70,7 +63,7 @@ export default {
         // id에 해당되는 유저 정보 가져오기 및 arrangeInfo() 호출
         const getInfo = async () => {
             try {
-                const res = await axios.get(`/api?id=${currentUser.value}`); //일치하는 id 필터링
+                const res = await axios.get(`/api?id=${currentUser}`); //일치하는 id 필터링
                 // console.log(res.data);
                 if (!res.data) { return console.log("일치하는 id 검색 실패"); }
                 isUserinfoGot.value = false;
@@ -78,12 +71,13 @@ export default {
                 //30일 전 날짜 구하기(지출/수입 카테고리)
                 const date = new Date();
                 date.setDate(date.getDate() - 30);
+                console.log(date);
                 const startDate = date.toISOString().split('T')[0];
 
-                //90일 전 날짜 구하기(총수익 카테고리)
-                const netDate = new Date();
-                netDate.setDate(date.getDate() - 90);
-                const startNetDate = netDate.toISOString().split('T')[0];
+                //현재 날짜로부터 90일 전 날짜 구하기(총수익 카테고리)
+                date.setDate(date.getDate() - 60);
+                console.log(date);
+                const startNetDate = date.toISOString().split('T')[0];
 
                 const netIncomeMap = new Map(); //최근 90일 이내 데이터로 필터링 위한 map
 
@@ -150,7 +144,7 @@ export default {
             if (!isUserinfoGot.value) { return console.log('데이터 없음'); }
             // 카테고리별 수입 금액 총합
             const incomeMap = new Map([
-                ['etc', 0],
+                ['ietc', 0],
                 ['allowance', 0],
                 ['salary', 0],
                 ['fIncome', 0],
@@ -158,7 +152,7 @@ export default {
 
             // 카테고리별 지출 금액 총합
             const expenseMap = new Map([
-                ['etc', 0],
+                ['eetc', 0],
                 ['shopping', 0],
                 ['medical', 0],
                 ['charge', 0],
@@ -190,10 +184,9 @@ export default {
         // 차트 그리기
         const updateChart = () => {
             // expense, income, netIncome 내역 추출
-            const expenseData = currentUserInfo.value.netIncome.map(item => item.expense);
-            const incomeData = currentUserInfo.value.netIncome.map(item => item.income);
+            const expenseData = currentUserInfo.value.expense.map(item => item.amount);
+            const incomeData = currentUserInfo.value.income.map(item => item.amount);
             const netIncomeData = currentUserInfo.value.netIncome.map(item => item.netIncome);
-            // console.log(expenseData);
 
             //차트 초기화
             if (myMixedChart) { myMixedChart.destroy(); }
@@ -221,7 +214,8 @@ export default {
                         labels: labelCategory.netIncomeCategory
                     },
                     options: {
-                        responsive: true,
+                        // responsive: false,
+                        maintainAspectRatio: false,
                         plugins: {
                             legend: {
                                 position: 'top',
@@ -237,12 +231,12 @@ export default {
 
                 if (selectedChart.value === 'income') {
                     graphTitle.value = '이번 달의 총 수입';
-                    totalText.value = '최근 1달 지출 총액';
+                    totalText.value = '최근 1달 수입 총액';
                     totalAmount.value = incomeData.reduce((ac, curVal) => ac + curVal, 0);
                 }
                 else {
                     graphTitle.value = '이번 달의 총 지출';
-                    totalText.value = '최근 1달 수입 총액';
+                    totalText.value = '최근 1달 지출 총액';
                     totalAmount.value = expenseData.reduce((ac, curVal) => ac + curVal, 0);
                 }
 
@@ -276,7 +270,8 @@ export default {
                         ],
                     },
                     options: {
-                        responsive: true,
+                        // responsive: false,
+                        maintainAspectRatio: false,
                         plugins: {
                             legend: {
                                 position: 'top',
@@ -308,3 +303,10 @@ export default {
     },
 };
 </script>
+<style scoped>
+.chart-type-selector{
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-around
+}
+</style>

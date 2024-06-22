@@ -17,6 +17,7 @@
     <EventModal
       :visible="isEventModalVisible"
       :event="selectedEvent"
+      @event-saved="fetchData"
       @close="isEventModalVisible = false"
     />
   </div>
@@ -30,11 +31,12 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 // import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 // import { INITIAL_EVENTS, createEventId } from "./event-utils";
-// import DateModal from "./components/DateModal.vue";
-// import EventModal from "./components/EventModal.vue";
+import DateModal from "@/components/DateModal.vue";
+import EventModal from "@/components/EventModal.vue";
 
 const translate = {
-  etc: "기타",
+  ietc: "기타소득",
+  eetc: "기타지출",
   allowance: "용돈",
   salary: "근로소득",
   fIncome: "금융소득",
@@ -45,18 +47,27 @@ const translate = {
   fOutcome: "금융",
 };
 
+//const UserID = "aaa"; // 테스트용 아이디
+
 export default defineComponent({
   components: {
     FullCalendar,
-    // DateModal,
-    // EventModal,
+    DateModal,
+    EventModal,
   },
+  inject: ["isLoggedIn", "localId"],
   data() {
     return {
       isDateModalVisible: false,
       isEventModalVisible: false,
       selectedDate: "",
-      selectedEvent: {},
+      selectedEvent: {
+        date: "",
+        category: "",
+        amount: 0,
+        memo: "",
+        type: "",
+      },
       calendarOptions: {
         plugins: [dayGridPlugin, interactionPlugin],
         headerToolbar: {
@@ -78,7 +89,7 @@ export default defineComponent({
   methods: {
     async fetchData() {
       try {
-        const response = await axios.get("api/aaa");
+        const response = await axios.get(`api/${this.localId}`);
         const data = response.data;
         const incomeEvents = [];
         const expenseEvents = [];
@@ -98,7 +109,7 @@ export default defineComponent({
             // id: createEventId(),
             title: `-${expense.amount}`,
             date: expense.date,
-            amount: -1 * expense.amount,
+            amount: expense.amount,
             category: expense.category,
             memo: expense.memo,
             className: "expense-custom",
@@ -111,13 +122,26 @@ export default defineComponent({
         console.error("Error fetching data:", error);
       }
     },
+
     handleDateSelect(info) {
       console.log("Date clicked:", info.dateStr);
       this.selectedDate = info.dateStr;
       this.isDateModalVisible = true;
     },
     handleEventClick(info) {
-      this.selectedEvent = info.event;
+      console.log("Event clicked:", info.event);
+      this.selectedEvent = {
+        date: info.event.start,
+        category: info.event.extendedProps?.category,
+        amount: info.event.extendedProps?.amount,
+        memo: info.event.extendedProps?.memo,
+        type:
+          info.event.classNames &&
+          info.event.classNames.includes("income-custom")
+            ? "income"
+            : "expense",
+      };
+
       this.isEventModalVisible = true;
     },
     handleEvents(events) {

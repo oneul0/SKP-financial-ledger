@@ -1,48 +1,84 @@
 <template>
+  <div
+    :class="[
+      darkMode ? 'app-dark-mode' : '',
+      fontSize == 'small' ? 'small-mode' : '',
+      fontSize == 'medium' ? 'medium-mode' : '',
+      fontSize == 'large' ? 'large-mode' : '',
+    ]"
+  >
+    <main>
+      <div class="container-fluid px-4">
+        <h1 class="mt-4">홈</h1>
+        <ol class="breadcrumb mb-4">
+          <li class="breadcrumb-item active">Home</li>
+        </ol>
+        <!-- 그래프 부분 -->
+        <div class="row">
+          <div class="col-xl-6">
+            <DoughnutGraph />
+          </div>
+          <div class="col-xl-6">
+            <MixedGraph />
+          </div>
+        </div>
 
-  <div class="home-view">
-    <!-- 상단 섹션 (현재는 비어 있음) -->
-    <div class="top-section"></div>
-    <!-- 하단 섹션 -->
-    <div class="bottom-section">
-      <!-- ListComp 컴포넌트를 사용하여 리스트를 표시 -->
-      <ListComp
-        :list="entries"
-        @edit-entry="editEntry"
-        @delete-entry="deleteEntry"
-        @update:list="updateEntries"
-      />
-    </div>
-    <!-- 항목 추가를 위한 버튼 -->
-    <button class="add-button" @click="showModal">+</button>
-    <!-- CreateComp 컴포넌트를 사용하여 항목 생성 모달 -->
-    <CreateComp
-      :isVisible="isModalVisible"
-      :entry="editingEntry"
-      @close="hideModal"
-      @add-entry="addEntry"
-    />
+        <div class="card mb-4">
+          <div class="card-header">
+            <h3 style="text-align: center">최근 거래 내역</h3>
+          </div>
+
+          <div class="card-body">
+            <HomeList />
+          </div>
+        </div>
+      </div>
+    </main>
   </div>
 </template>
 
 <script>
-import ListComp from "../components/ListComp.vue";
-import CreateComp from "../components/CreateComp.vue";
+import DoughnutGraph from "../components/DoughnutGraph.vue";
+import MixedGraph from "../components/MixedGraph.vue";
+import HomeList from "../components/HomeList.vue";
 import axios from "axios";
 
 export default {
   components: {
-    ListComp,
-    CreateComp,
+    DoughnutGraph,
+    MixedGraph,
+    HomeList,
   },
   data() {
     return {
       entries: [], // 거래 내역 리스트
       isModalVisible: false, // 모달 표시 여부
       editingEntry: null, // 수정 중인 항목
+
+      darkMode: false,
+      fontSize: "",
     };
   },
+  created() {
+    this.chkMode(); // mount시 darkMode 여부와 fontSize 판별
+    console.log(this.darkMode);
+    console.log(this.fontSize);
+  },
+
   methods: {
+    // darkMode & fontSize 설정 작동
+    chkMode() {
+      const saveMode = localStorage.getItem("darkMode");
+      const saveFontMode = localStorage.getItem("fontSize");
+      if (saveMode !== null && saveMode === "true") {
+        // localStorage는 string만 저장 가능
+        this.darkMode = true;
+      }
+      if (saveFontMode !== null) {
+        this.fontSize = saveFontMode;
+      }
+    },
+
     // 모달 표시
     showModal() {
       this.isModalVisible = true;
@@ -79,7 +115,7 @@ export default {
     // 항목 저장 (서버에 POST 요청)
     async saveEntries() {
       try {
-        await axios.post("http://localhost:3000/api/entries", this.entries);
+        await axios.post("/api", this.entries);
       } catch (error) {
         console.error("Error saving entries:", error);
       }
@@ -87,7 +123,7 @@ export default {
     // 항목 불러오기 (서버에 GET 요청)
     async loadEntries() {
       try {
-        const response = await axios.get("http://localhost:3000/api/entries");
+        const response = await axios.get("/api");
         this.entries = response.data;
       } catch (error) {
         console.error("Error loading entries:", error);
@@ -97,10 +133,26 @@ export default {
     updateEntries(updatedList) {
       this.entries = updatedList;
     },
+    // darkMode & fontSize 설정 작동
+    chkMode() {
+      const saveMode = localStorage.getItem("darkMode");
+      const saveFontMode = localStorage.getItem("fontSize");
+      if (saveMode !== null && saveMode === "true") {
+        // localStorage는 string만 저장 가능
+        this.darkMode = true;
+      }
+      if (saveFontMode !== null) {
+        this.fontSize = saveFontMode;
+      }
+    },
   },
   async mounted() {
     await this.loadEntries(); // 컴포넌트가 마운트될 때 항목 불러오기
   },
+  created() {
+    this.chkMode(); // mount시 darkMode 여부와 fontSize 판별
+  },
 };
 </script>
 
+<style scoped></style>
