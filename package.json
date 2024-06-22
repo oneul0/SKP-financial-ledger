@@ -25,12 +25,13 @@
     "install": "^0.13.0",
     "npm": "^10.8.1",
     "pinia": "^2.1.7",
+    "rollup": "^4.18.0",
     "vue": "^3.4.27",
     "vue-router": "^4.0.13"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
     "@vue/cli-service": "^5.0.8",
-    "vite": "^5.2.0"
+    "vite": "^5.3.1"
   }
 }
